@@ -1,67 +1,168 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Publications | Academic</title>
+    <title>Journal articles | Alan Jern</title>
     <link>https://alanjern.github.io/publication/</link>
       <atom:link href="https://alanjern.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
-    <description>Publications</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 07 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <description>Journal articles</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alanjern.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_2.png</url>
-      <title>Publications</title>
+      <title>Journal articles</title>
       <link>https://alanjern.github.io/publication/</link>
     </image>
     
     <item>
-      <title>An example preprint / working paper</title>
-      <link>https://alanjern.github.io/publication/preprint/</link>
-      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>https://alanjern.github.io/publication/preprint/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://wowchemy.com/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code, math, and images&lt;/a&gt;.&lt;/p&gt;
+      <title>A computational framework for understanding the roles of simplicity and rational support in people&#39;s behavior explanations</title>
+      <link>https://alanjern.github.io/publication/jern-et-al-21/</link>
+      <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-et-al-21/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>People are intuitive economists under the right conditions</title>
+      <link>https://alanjern.github.io/publication/jern-18/</link>
+      <pubDate>Thu, 30 Aug 2018 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-18/</guid>
+      <description>&lt;p&gt;Commentary on &lt;a href=&#34;https://doi.org/10.1017/S0140525X17001960&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Boyer &amp;amp; Petersen&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>An example journal article</title>
-      <link>https://alanjern.github.io/publication/journal-article/</link>
+      <title>A preliminary study of the educational benefits of conducting replications in the classroom</title>
+      <link>https://alanjern.github.io/publication/jern-18-b/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-18-b/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>People learn other people&#39;s preferences through inverse decision-making</title>
+      <link>https://alanjern.github.io/publication/jern-et-al-17/</link>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-et-al-17/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A decision network account of reasoning about other people&#39;s choices</title>
+      <link>https://alanjern.github.io/publication/jern-kemp-15/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
-      <guid>https://alanjern.github.io/publication/journal-article/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://wowchemy.com/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code, math, and images&lt;/a&gt;.&lt;/p&gt;
-</description>
+      <guid>https://alanjern.github.io/publication/jern-kemp-15/</guid>
+      <description></description>
     </item>
     
     <item>
-      <title>An example conference paper</title>
-      <link>https://alanjern.github.io/publication/conference-paper/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>https://alanjern.github.io/publication/conference-paper/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://wowchemy.com/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code, math, and images&lt;/a&gt;.&lt;/p&gt;
-</description>
+      <title>Computational principles underlying people&#39;s behavior explanations</title>
+      <link>https://alanjern.github.io/publication/piergiovanni-jern-15/</link>
+      <pubDate>Wed, 01 Jul 2015 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/piergiovanni-jern-15/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reasoning about social choices and social relationships</title>
+      <link>https://alanjern.github.io/publication/jern-kemp-14/</link>
+      <pubDate>Tue, 01 Jul 2014 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-kemp-14/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A taxonomy of inductive problems</title>
+      <link>https://alanjern.github.io/publication/kemp-jern-14/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/kemp-jern-14/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Belief polarization is not always rational</title>
+      <link>https://alanjern.github.io/publication/jern-et-al-14/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-et-al-14/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A probabilistic account of exemplar and category generation</title>
+      <link>https://alanjern.github.io/publication/jern-kemp-13/</link>
+      <pubDate>Fri, 01 Feb 2013 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-kemp-13/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Evaluating the inverse decision-making approach to preference learning</title>
+      <link>https://alanjern.github.io/publication/jern-et-al-11-preferences/</link>
+      <pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-et-al-11-preferences/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Capturing mental state reasoning with influence diagrams</title>
+      <link>https://alanjern.github.io/publication/jern-kemp-11-a/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-kemp-11-a/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Concept learning and modal reasoning</title>
+      <link>https://alanjern.github.io/publication/kemp-et-al-11/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/kemp-et-al-11/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Decision factors that support preference learning</title>
+      <link>https://alanjern.github.io/publication/jern-kemp-11-b/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-kemp-11-b/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Abstraction and relational learning</title>
+      <link>https://alanjern.github.io/publication/kemp-jern-09-relationallearning/</link>
+      <pubDate>Tue, 01 Dec 2009 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/kemp-jern-09-relationallearning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bayesian belief polarization</title>
+      <link>https://alanjern.github.io/publication/jern-et-al-09/</link>
+      <pubDate>Tue, 01 Dec 2009 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-et-al-09/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Object discovery and identification</title>
+      <link>https://alanjern.github.io/publication/kemp-et-al-09/</link>
+      <pubDate>Tue, 01 Dec 2009 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/kemp-et-al-09/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A taxonomy of inductive problems</title>
+      <link>https://alanjern.github.io/publication/kemp-jern-09-taxonomy/</link>
+      <pubDate>Wed, 01 Jul 2009 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/kemp-jern-09-taxonomy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Category generation</title>
+      <link>https://alanjern.github.io/publication/jern-kemp-09/</link>
+      <pubDate>Wed, 01 Jul 2009 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-kemp-09/</guid>
+      <description></description>
     </item>
     
   </channel>
