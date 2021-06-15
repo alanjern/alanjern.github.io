@@ -1,3 +1,3 @@
 # My personal website
 
-[alajern.github.io](alanjern.github.io)
+[alajern.github.io](https://alanjern.github.io/)
