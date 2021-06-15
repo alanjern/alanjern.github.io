@@ -101,6 +101,8 @@
         
       
         
+      
+        
           
         
       
@@ -296,6 +298,45 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-71M9JBSY79"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-71M9JBSY79', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
   
@@ -319,8 +360,8 @@
     <link rel="manifest" href="/index.webmanifest" />
   
 
-  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_2.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_2.png" />
+  <link rel="icon" type="image/png" href="/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_180x180_fill_lanczos_center_2.png" />
 
   <link rel="canonical" href="https://alanjern.github.io/" />
 
@@ -341,8 +382,8 @@
   <meta property="og:site_name" content="Alan Jern" />
   <meta property="og:url" content="https://alanjern.github.io/" />
   <meta property="og:title" content="Alan Jern" />
-  <meta property="og:description" content="Associate Professor of Psychology" /><meta property="og:image" content="https://alanjern.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_2.png" />
-    <meta property="twitter:image" content="https://alanjern.github.io/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_2.png" /><meta property="og:locale" content="en-us" />
+  <meta property="og:description" content="Associate Professor of Psychology" /><meta property="og:image" content="https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png" />
+    <meta property="twitter:image" content="https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta property="og:updated_time" content="2030-06-01T13:00:00&#43;00:00" />
@@ -576,7 +617,35 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/courses/"><span>Teaching</span></a>
+          <a class="nav-link " href="/teaching/"><span>Teaching</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/lab/"><span>Lab</span></a>
         </li>
 
         
@@ -606,7 +675,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/post/"><span>Blog</span></a>
+          <a class="nav-link " href="/blog/"><span>Blog</span></a>
         </li>
 
         
@@ -2788,6 +2857,492 @@
   
   
 
+</div>
+
+
+    
+      </div>
+    
+
+    </div>
+  </section>
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+  <section id="popular_pubs" class="home-section wg-portfolio  "  >
+   <div class="home-section-bg " ></div>
+    <div class="container">
+
+    
+      <div class="row  justify-content-center">
+      
+        
+          <div class="section-heading col-12 mb-3 text-center">
+            <h1 class="mb-0">Popular science articles</h1>
+            
+          </div>
+        
+      
+    
+
+      
+
+
+
+
+
+
+
+<div class="col-12 ">
+
+  
+
+  
+
+  <div class="isotope projects-container js-layout-masonry ">
+
+    
+    
+      
+    
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://nautil.us/issue/98/mind/the-intelligent-life-of-droids" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/nautilus21/featured_hu9da48eea27a59d47d0a7b168eab15115_835105_550x0_resize_lanczos_2.png" alt="The intelligent life of droids" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://nautil.us/issue/98/mind/the-intelligent-life-of-droids" target="_blank" rel="noopener">The intelligent life of droids</a></h4>
+
+      
+      <div class="article-style">
+        <p>Nautilus. March 3, 2021.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://psyche.co/ideas/effective-altruism-is-logical-but-too-unnatural-to-catch-on" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/psyche20/featured_hud77f82eab8aed75308597f1a85c96f11_4026216_550x0_resize_lanczos_2.png" alt="Effective altruism is logical, but too unnatural to catch on" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://psyche.co/ideas/effective-altruism-is-logical-but-too-unnatural-to-catch-on" target="_blank" rel="noopener">Effective altruism is logical, but too unnatural to catch on</a></h4>
+
+      
+      <div class="article-style">
+        <p>Psyche. October 13, 2020.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://www.vox.com/2020/9/1/21410352/cdc-6-percent-covid-19-deaths-comorbidities" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/vox20/featured_hu04aacd07364efb65d644d5cfdd4637a3_75078_550x0_resize_q75_lanczos.jpg" alt="Covid-19 death skepticism, explained by a cognitive scientist" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://www.vox.com/2020/9/1/21410352/cdc-6-percent-covid-19-deaths-comorbidities" target="_blank" rel="noopener">Covid-19 death skepticism, explained by a cognitive scientist</a></h4>
+
+      
+      <div class="article-style">
+        <p>Vox. September 1, 2020.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://culturico.com/2020/04/30/hbos-my-brilliant-friend-a-glance-into-the-reality-of-child-prodigies/" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/culturico20/featured_hu42d21f88520038b77f30fa218035a58a_1260110_550x0_resize_lanczos_2.png" alt="HBO&#39;s My Brilliant Friend: a glance into the reality of child prodigies" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://culturico.com/2020/04/30/hbos-my-brilliant-friend-a-glance-into-the-reality-of-child-prodigies/" target="_blank" rel="noopener">HBO&rsquo;s My Brilliant Friend: a glance into the reality of child prodigies</a></h4>
+
+      
+      <div class="article-style">
+        <p>culturico. April 30, 2020.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://cogbites.org/2020/03/16/state-dependent-memory/" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/cogbites20/featured_hu58bf2cec08446f2c5f514709337a456d_656580_550x0_resize_lanczos_2.png" alt="Could stabbing yourself help you remember? The cognitive psychology behind a scene from Netflix’s Altered Carbon" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://cogbites.org/2020/03/16/state-dependent-memory/" target="_blank" rel="noopener">Could stabbing yourself help you remember? The cognitive psychology behind a scene from Netflix’s Altered Carbon</a></h4>
+
+      
+      <div class="article-style">
+        <p>cogbites. March 16, 2020.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://areomagazine.com/2020/03/06/there-are-no-good-or-bad-people/" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/areo20/featured_hu3aa1166383b966d652795792896a09e1_2783378_550x0_resize_lanczos_2.png" alt="There are no &#34;good&#34; or &#34;bad&#34; people" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://areomagazine.com/2020/03/06/there-are-no-good-or-bad-people/" target="_blank" rel="noopener">There are no &ldquo;good&rdquo; or &ldquo;bad&rdquo; people</a></h4>
+
+      
+      <div class="article-style">
+        <p>Areo. March 6, 2020.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://theconversation.com/what-hbos-westworld-gets-wrong-and-right-about-human-nature-67286" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/conversation16b/featured_huc8845ae0412008cacc2d8b500530c73c_3030353_550x0_resize_lanczos_2.png" alt="What HBO&#39;s Westworld gets wrong (and right) about human nature" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://theconversation.com/what-hbos-westworld-gets-wrong-and-right-about-human-nature-67286" target="_blank" rel="noopener">What HBO&rsquo;s Westworld gets wrong (and right) about human nature</a></h4>
+
+      
+      <div class="article-style">
+        <p>The Conversation. November 3, 2016.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+
+      
+      
+      
+        
+        
+      
+
+      
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item ">
+  <div class="card">
+    
+    
+    <a href="https://theconversation.com/enough-with-the-spoiler-alerts-plot-spoilers-often-increase-enjoyment-62154" target="_blank" rel="noopener" class="card-image hover-overlay">
+      <img src="/popular/conversation16a/featured_huad37c0aac8e0a9cd03b9ca0e3c16d997_1874731_550x0_resize_lanczos_2.png" alt="Enough with the spoiler alerts! Plot spoilers often increase enjoyment" class="img-responsive" loading="lazy">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="https://theconversation.com/enough-with-the-spoiler-alerts-plot-spoilers-often-increase-enjoyment-62154" target="_blank" rel="noopener">Enough with the spoiler alerts! Plot spoilers often increase enjoyment</a></h4>
+
+      
+      <div class="article-style">
+        <p>The Conversation. July 14, 2016.</p>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</div>
+
+      
+
+    
+  </div>
 </div>
 
 

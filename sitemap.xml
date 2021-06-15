@@ -44,6 +44,12 @@
     <loc>https://alanjern.github.io/publication_types/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://alanjern.github.io/popular/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alanjern.github.io/popular/nautilus21/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://alanjern.github.io/courses/</loc>
     <lastmod>2021-01-24T00:00:00+00:00</lastmod>
   </url><url>
@@ -95,6 +101,21 @@
     <loc>https://alanjern.github.io/tag/regression/</loc>
     <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
+    <loc>https://alanjern.github.io/popular/psyche20/</loc>
+    <lastmod>2020-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alanjern.github.io/popular/vox20/</loc>
+    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alanjern.github.io/popular/culturico20/</loc>
+    <lastmod>2020-04-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alanjern.github.io/popular/cogbites20/</loc>
+    <lastmod>2020-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alanjern.github.io/popular/areo20/</loc>
+    <lastmod>2020-03-06T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://alanjern.github.io/post/writing-technical-content/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
   </url><url>
@@ -121,6 +142,12 @@
   </url><url>
     <loc>https://alanjern.github.io/publication/jern-et-al-17/</loc>
     <lastmod>2017-11-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alanjern.github.io/popular/conversation16b/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alanjern.github.io/popular/conversation16a/</loc>
+    <lastmod>2016-07-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alanjern.github.io/tag/deep-learning/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
@@ -195,5 +222,13 @@
     <lastmod>2009-07-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alanjern.github.io/admin/</loc>
+  </url><url>
+    <loc>https://alanjern.github.io/blog/</loc>
+  </url><url>
+    <loc>https://alanjern.github.io/starwars/</loc>
+  </url><url>
+    <loc>https://alanjern.github.io/teaching/</loc>
+  </url><url>
+    <loc>https://alanjern.github.io/lab/</loc>
   </url>
 </urlset>
