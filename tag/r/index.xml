@@ -13,12 +13,12 @@
     </image>
     
     <item>
-      <title>Three police offers have died in Terre Haute, IN in the last 10 years. Is that a lot?</title>
-      <link>https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/</link>
+      <title>Three police offers have died in Terre Haute in the last 10 years. Is that a lot?</title>
+      <link>https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/</link>
       <pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate>
-      <guid>https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/</guid>
+      <guid>https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/</guid>
       <description>
-&lt;script src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;background&#34; class=&#34;section level1&#34;&gt;
@@ -65,7 +65,7 @@
        title = str_c(&amp;quot;Officer Deaths, &amp;quot;, startingYear, &amp;quot;-&amp;quot;, finalYear)) +
   guides(shape = guide_legend(override.aes = list(alpha = 1, color = &amp;quot;black&amp;quot;)))
 print(popVsDeaths)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/pop-vs-deaths-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/pop-vs-deaths-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;⚠️ One problem with this plot is that many departments showing zero deaths are actually mistakes. This is due to the overly simple department-location matching procedure I used.&lt;/p&gt;
 &lt;p&gt;One example is the Miami-Dade Police Department. This got included because it has the phrase &lt;code&gt;Police Department&lt;/code&gt; in it. However, Miami-Dade is a county (a large one, with about 2.5 million people living there) and is identified as &lt;code&gt;Miami-Dade County&lt;/code&gt; in my county population dataset. So the department name and county name fail to match because the word “county” doesn’t appear in the name of the department.&lt;/p&gt;
 &lt;p&gt;This actually happened a lot, so you can’t really trust all the zeros. But surely some of the zeros are accurate – it’s possible for a small-town department to have zero officer deaths. To not include them at all would also be a mistake. But I think including all the mistaken zeros ended up being a bigger mistake overall.&lt;/p&gt;
@@ -93,7 +93,7 @@ print(popVsDeaths)&lt;/code&gt;&lt;/pre&gt;
        subtitle = &amp;quot;Locations where at least one death occurred&amp;quot;) +
   guides(shape = guide_legend(override.aes = list(alpha = 1, color = &amp;quot;black&amp;quot;)))
 print(popVsDeaths2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/pop-vs-deaths-plot-no-zeros-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/pop-vs-deaths-plot-no-zeros-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Many fewer departments (especially from small cities), but same basic shape. In both plots, I’ve colored small towns like Terre Haute in turquoise and also higlighted a few standout locations to help you orient yourself.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;scaling-by-population&#34; class=&#34;section level2&#34;&gt;
@@ -124,7 +124,7 @@ print(popVsDeaths2)&lt;/code&gt;&lt;/pre&gt;
   theme(legend.position = &amp;quot;bottom&amp;quot;)
   
 print(scaledPopsVsDeaths)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/scaled-pop-vs-deaths-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/scaled-pop-vs-deaths-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This plot suggests that Terre Haute is above average but maybe not a huge outlier, even among cities of similar population size.&lt;/p&gt;
 &lt;p&gt;More generally, this plot suggests there is not much of a relationship between city size and number of officer deaths, at least for cities above a certain size. The reason it looks like there is a relationship between population and deaths is almost certainly due to there being greater variability for smaller towns/departments. For example, a single death in a small town would have a big effect on this metric.&lt;/p&gt;
 &lt;p&gt;So let’s exclude small towns (population &amp;lt; 50,000) to get a better understanding.&lt;/p&gt;
@@ -151,7 +151,7 @@ print(scaledPopsVsDeaths)&lt;/code&gt;&lt;/pre&gt;
   theme(legend.position = &amp;quot;bottom&amp;quot;)
   
 print(scaledPopsVsDeaths_noSmallTowns)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/scaled-pops-vs-deaths-no-small-towns-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/scaled-pops-vs-deaths-no-small-towns-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This plot allows us to get a better sense of variability, especially among midsize towns. In this plot, Terre Haute does look a bit more like an outlier. In more quantitative terms, among the locations in the plot above, &lt;strong&gt;Terre Haute is in the 99th percentile for officer deaths&lt;/strong&gt;, scaled by population size. It drops to the 93rd percentile if you include the small towns that were in the previous plot.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;officer-deaths-over-time&#34; class=&#34;section level2&#34;&gt;
@@ -181,7 +181,7 @@ print(scaledPopsVsDeaths_noSmallTowns)&lt;/code&gt;&lt;/pre&gt;
         panel.grid.major.x = element_blank(),
         panel.grid.minor.y = element_blank())
 print(deathsOverTime)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/deaths-over-time-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/three-police-offers-have-died-in-terre-haute-in-the-last-10-years.-is-that-a-lot/index_files/figure-html/deaths-over-time-plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This plot shows cumulative deaths since 1980 for each department serving an area over 50,000 (again limited to only those departments that had at least one death). Terre Haute is highlighted. It gives the impression that Terre Haute wasn’t much of an outlier until the past 10 years when the last three officers died.&lt;/p&gt;
 &lt;p&gt;It also shows that no officers died in Terre Haute for several decades before 2011.&lt;/p&gt;
 &lt;/div&gt;
