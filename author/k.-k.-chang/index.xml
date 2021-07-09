@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>K. K. Chang | Alan Jern</title>
+    <link>https://alanjern.github.io/author/k.-k.-chang/</link>
+      <atom:link href="https://alanjern.github.io/author/k.-k.-chang/index.xml" rel="self" type="application/rss+xml" />
+    <description>K. K. Chang</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2014 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png</url>
+      <title>K. K. Chang</title>
+      <link>https://alanjern.github.io/author/k.-k.-chang/</link>
+    </image>
+    
+    <item>
+      <title>Belief polarization is not always rational</title>
+      <link>https://alanjern.github.io/publication/jern-et-al-14/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-et-al-14/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bayesian belief polarization</title>
+      <link>https://alanjern.github.io/publication/jern-et-al-09/</link>
+      <pubDate>Tue, 01 Dec 2009 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/jern-et-al-09/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

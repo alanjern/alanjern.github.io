@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>F. Han | Alan Jern</title>
+    <link>https://alanjern.github.io/author/f.-han/</link>
+      <atom:link href="https://alanjern.github.io/author/f.-han/index.xml" rel="self" type="application/rss+xml" />
+    <description>F. Han</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 01 Jul 2011 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png</url>
+      <title>F. Han</title>
+      <link>https://alanjern.github.io/author/f.-han/</link>
+    </image>
+    
+    <item>
+      <title>Concept learning and modal reasoning</title>
+      <link>https://alanjern.github.io/publication/kemp-et-al-11/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/kemp-et-al-11/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
