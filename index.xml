@@ -144,7 +144,7 @@ The variance of the distribution is $\sigma^{2}$.
 &lt;/div&gt;
 &lt;div id=&#34;the-data&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;The data 📒&lt;/h1&gt;
-&lt;p&gt;🗄 I collected data on police officer deaths from the &lt;a href=&#34;https://www.odmp.org/&#34;&gt;Officer Down Memorial Page&lt;/a&gt;. Their database includes “line of duty” deaths from all causes going back to before 1800. I decided to only collect data from 1980 to today (the most recent death in the database was the death in Terre Haute). So my analysis is only of deaths from the last ~30 years.&lt;/p&gt;
+&lt;p&gt;🗄 I collected data on police officer deaths from the &lt;a href=&#34;https://www.odmp.org/&#34;&gt;Officer Down Memorial Page&lt;/a&gt;. Their database includes “line of duty” deaths from all causes going back to before 1800. I decided to only collect data from 1980 to today (the most recent death in the database was the death in Terre Haute). So my analysis is only of deaths from the last ~40 years.&lt;/p&gt;
 &lt;p&gt;🗄 Data on US &lt;a href=&#34;https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html&#34;&gt;county&lt;/a&gt; and &lt;a href=&#34;https://www.census.gov/data/tables/time-series/demo/popest/2010s-total-cities-and-towns.html&#34;&gt;city&lt;/a&gt; populations came from the &lt;a href=&#34;https://www.census.gov/en.html&#34;&gt;US Census&lt;/a&gt;. This data includes annual population estimates going back about 10 years. For this analysis, I just decided to use the population numbers from the 2010 census.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;how-i-combined-the-data&#34; class=&#34;section level1&#34;&gt;
@@ -307,7 +307,7 @@ print(deathsOverTime)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For example, speaking for myself, as someone pretty ignorant of law enforcement, I imagined “line of duty” deaths to be the result of attacks at the hands of suspects. But a number of the deaths in the dataset were caused by things like car crashes, Covid-19 (from the past two years), and heart attacks – things that happened while on the job but might be hard to attribute to the job itself. My point isn’t to diminish any of these deaths at all, only to point out that more deaths isn’t necessarily a sign of some systematic failure of a department. You would need to look at the causes of death (among other factors) before drawing a conclusion like that.&lt;/p&gt;
 &lt;div id=&#34;code-and-data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Code and data 📑&lt;/h2&gt;
-&lt;p&gt;Data and full analysis code to generate these plots are available &lt;a href=&#34;https://github.com/alanjern/police-officer-deaths&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Data and the full analysis code I used to generate these plots are available &lt;a href=&#34;https://github.com/alanjern/police-officer-deaths&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
