@@ -5,12 +5,107 @@
     <link>https://alanjern.github.io/tag/data-visualization/</link>
       <atom:link href="https://alanjern.github.io/tag/data-visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>data visualization</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 27 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 11 Dec 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png</url>
       <title>data visualization</title>
       <link>https://alanjern.github.io/tag/data-visualization/</link>
     </image>
+    
+    <item>
+      <title>When are waits lowest at Disney World?</title>
+      <link>https://alanjern.github.io/post/when-are-waits-lowest-at-disney-world/</link>
+      <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/post/when-are-waits-lowest-at-disney-world/</guid>
+      <description>
+&lt;script src=&#34;https://alanjern.github.io/post/when-are-waits-lowest-at-disney-world/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I love Disney World. I hate waiting in line. Sadly you can’t go to Disney World without waiting in line. But if you plan ahead, you can keep the waiting to a minimum.&lt;/p&gt;
+&lt;p&gt;Part of that planning is going at the right time. Visitors are somewhat predictable: they don’t visit uniformly throughout the year. If you have the flexibility, you can minimize your wait times by going when other people aren’t. But when are those times?&lt;/p&gt;
+&lt;p&gt;To try to answer that question, I found a great &lt;a href=&#34;https://touringplans.com/walt-disney-world/crowd-calendar#DataSets&#34;&gt;dataset&lt;/a&gt; from Touring Plans of posted wait times for several attractions in each park every few minutes of each day going back to 2015.&lt;/p&gt;
+&lt;div id=&#34;a-year-at-magic-kingdom-in-waits&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A year at Magic Kingdom in waits&lt;/h2&gt;
+&lt;p&gt;For Magic Kingdom, Touring Plans has data for three attractions: &lt;em&gt;Pirates of the Caribbean&lt;/em&gt;, &lt;em&gt;Seven Dwarfs Mine Train&lt;/em&gt;, and &lt;em&gt;Splash Mountain&lt;/em&gt;. To get a sense of how waits at Magic Kingdom vary over the calender year, I took waits from every day between January 1st, 2015 and March 15, 2020 (the last day Disney World before it shut down for Covid), dropped the year (combining, for example, all waits from January 1st from all years), then computed the mean waits for each day of the year based on the three attractions.&lt;/p&gt;
+&lt;p&gt;Here are the results.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/when-are-waits-lowest-at-disney-world/index_files/figure-html/plot-yearly-average-waits-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The plot also shows US holidays (some holidays fell on different days between 2015 and 2021), and estimates of public school breaks. School breaks vary a lot, so I just went with the &lt;a href=&#34;https://www.ocps.net/about_us/calendars/historical_calendars&#34;&gt;dates of the Orange County Public School district&lt;/a&gt; in Florida, which includes Orlando. The data on US holidays comes from &lt;a href=&#34;https://gist.github.com/shivaas/4758439&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There are a few conclusions that you can draw from this plot:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Waits spike during holidays.&lt;/li&gt;
+&lt;li&gt;Waits rise in the summer.&lt;/li&gt;
+&lt;li&gt;Waits rise in late March/early April, probably due to Spring break.&lt;/li&gt;
+&lt;li&gt;Waits seem to be lowest in the Fall and early December.&lt;/li&gt;
+&lt;li&gt;On any given day, waits vary a lot. The gray bands show the boundaries between the 25th and 75th percentiles for waits each day for the five years in the data. For example, the mean wait on January 1st is 52 minutes, but 25% of the posted waits on that day for the three attractions were under 20 minutes and 25% of the posted waits were over 75 minutes.&lt;/li&gt;
+&lt;li&gt;New Year’s Eve is hell at Magic Kingdom.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This plot is already pretty helpful, but it would be nice if we would be a little more precise. That is, can we use a statistical model to say, in quantitative terms, how much better or worse the best and worst times to visit are?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-much-of-a-difference-does-the-time-of-year-make&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How much of a difference does the time of year make?&lt;/h2&gt;
+&lt;p&gt;I fit a linear regression model that used week of the year and whether the day was within a day of a holiday to predict wait times. (Including whether a day was during a school break didn’t make much difference in terms of predictions, probably because week of the year already captured most of what “break time” would.)&lt;/p&gt;
+&lt;div id=&#34;results&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Results&lt;/h3&gt;
+&lt;p&gt;On average, &lt;strong&gt;days that are on or near holidays have average waits that are about 6 minutes longer than days that aren’t&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The effects of week are shown below. Because the actual wait times are somewhat meaningless (they are just averages of three attractions), I’ve plotted changes in terms of percent. These changes are relative to Week 16 of the year (around mid-April), which is pretty close to an average week at Disney World.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/when-are-waits-lowest-at-disney-world/index_files/figure-html/show-modeling-results-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;best weeks&lt;/strong&gt; to visit in terms of low waits are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;September through early October, when waits can decrease by 20-30% from baseline.&lt;/li&gt;
+&lt;li&gt;first half of December, when waits can decrease by about 20% from baseline.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;strong&gt;worst weeks&lt;/strong&gt; to visit are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The last two weeks of the year and the first week of the year, when waits can increase by over 20% from baseline.&lt;/li&gt;
+&lt;li&gt;Late March to early April, when waits can increase by about 20% from baseline.&lt;/li&gt;
+&lt;li&gt;Mid-July to early August, when waits can increase by 15-20% from baseline.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;And don’t ever go to Disney World on New Years Eve.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-has-covid-affected-waits&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How has Covid affected waits?&lt;/h2&gt;
+&lt;p&gt;Disney World shut down due to Covid on March 15th, 2020. It reopened on July 11th that same year and has remained open ever since. It changed a lot of its operations after reopening. And, initially, visitors were skittish about returning. So how have wait times changed since reopening?&lt;/p&gt;
+&lt;p&gt;To answer this question, I compared the model’s predicted wait times to the posted wait times from the Touring Plans dataset, collected from the date of reopening.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/when-are-waits-lowest-at-disney-world/index_files/figure-html/compare-predictions-to-post-covid-data-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note that there’s a lot of missing data in the Fall of 2020.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;This plot suggests that, since reopening, wait times have generally been a little lower than average, except for maybe in July 2021. However, it looks like waits are beginning to return to their usual patterns as of this past Fall. It’s probably too soon to say whether it’s a persisent pattern.&lt;/p&gt;
+&lt;p&gt;For comparison, we can do the same analysis for a different park. I fit another model using the same method with Touring Plans data for the Hollywood Studios park in Disney World. Touring Plans provides wait times for four attractions in Hollywood Studios: &lt;em&gt;Rock ‘n’ Roller Coaster&lt;/em&gt;, &lt;em&gt;Alien Swirling Saucers&lt;/em&gt;, &lt;em&gt;Slinky Dog Dash&lt;/em&gt;, and &lt;em&gt;Toy Story Mania&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Here’s the comparable plot.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/when-are-waits-lowest-at-disney-world/index_files/figure-html/compare-hs-preidctions-to-post-covid-data-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The pattern is basically the same. Generally lower-than-expected waits and an apparent return to normal starting this past Fall.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;should-i-book-my-trip&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Should I book my trip?&lt;/h2&gt;
+&lt;p&gt;Not quite yet.&lt;/p&gt;
+&lt;p&gt;As a check, I compared my work to the weekly ranking developed by Dave Shrute of &lt;a href=&#34;https://yourfirstvisit.net/&#34;&gt;yourfirstvisit.net&lt;/a&gt;. Dave doesn’t base his recommendations on statistics and data analysis. Instead, they’re based on his years of firsthand knowledge and experience. &lt;a href=&#34;https://yourfirstvisit.net/2021/01/11/the-best-weeks-in-2021-to-visit-walt-disney-world-ranked-in-order/&#34;&gt;Here&lt;/a&gt; are his recommendations for 2021.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/yfw_bestweeks_2021.png&#34; alt=&#34;yourfirsrtvisit’s 2021 Disney World weekly visit rankings&#34; /&gt;
+Surprisingly, his recommendations don’t align with mine much at all. Some of his top-ranked weeks are in the middle of summer. After that, he recommends going in mid-April and early May.&lt;/p&gt;
+&lt;div id=&#34;whats-going-on&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What’s going on?&lt;/h3&gt;
+&lt;p&gt;First, Dave factors in more than crowd levels. He considers things like weather and ride closures. September may be a low-crowd time but it’s also peak hurricane season. And low-crowd times tend to coincide with suboptimal experiences: Disney is well aware of these seasonal patterns, so they reduce operating hours and schedule attraction refurbishments in the off-season. This means you may get less time in the park and fewer things to do if you go during a less popular time.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;So if your goal is to have the best overall experience (which Dave’s advice is targeted toward), choosing the the lowest-crowd time may not actually be best.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Second, Dave may have some knowledge not captured in the data. He seems to discount some of the weeks (like in early December) as heavy-crowd times that my analysis predicts will have lower than average waits.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;okay-but-all-i-care-about-is-short-waits.-should-i-book-my-trip-now&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Okay, but all I care about is short waits. Should I book my trip &lt;em&gt;now&lt;/em&gt;?&lt;/h3&gt;
+&lt;p&gt;All else being equal, lower waits are better. But is this data giving an accurate picture of wait times? Maybe not.&lt;/p&gt;
+&lt;p&gt;Aside from the fact that the dataset only includes a few attractions per park, the data are &lt;em&gt;posted&lt;/em&gt; wait times, not &lt;em&gt;actual&lt;/em&gt; wait times. Disney is &lt;a href=&#34;https://www.disneytouristblog.com/actual-versus-posted-wait-times-disney-world/&#34;&gt;notorious&lt;/a&gt; for inflating posted wait times. After all, people are happier when they get in a line expecting to wait 30 minutes and only end up waiting 15 than when they get in a line expecting to wait 15 and end up waiting 30.&lt;/p&gt;
+&lt;p&gt;Additionally, ever since Disney parks started posting wait times on their mobile apps, it’s been strongly suspected that they intentionally manipulate posted wait times to disperse crowds. For example, they might inflate wait times in Tomorrowland to push people toward Frontierland on the other side of the park. (To learn more about this, along with the fascinating history of FastPasses and their influence on wait times, check out &lt;a href=&#34;https://youtu.be/9yjZpBq1XBE&#34;&gt;this&lt;/a&gt; nearly two-hour long video. It’s really interesting, I promise!)&lt;/p&gt;
+&lt;p&gt;So you probably shouldn’t take the absolute numbers too seriously. But if waits are consistently inflated year-round, you can probably expect to encounter shorter waits in September than in June, for example, and you can treat this data as an indirect measure of crowds levels.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;There is a clear seasonal pattern to waits (or, perhaps more accurately, crowd levels) at Disney World. Exactly how much impact this will have on the quality of your visit is hard to say because that depends on many more factors.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;But, for the love of God, don’t go to Disney World on New Year’s Eve.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;code-and-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Code and data&lt;/h2&gt;
+&lt;p&gt;Data and the full analysis code I used to generate these plots are available &lt;a href=&#34;https://github.com/alanjern/wdw-waits&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Can you save money at Union Hospital by not using insurance?</title>
