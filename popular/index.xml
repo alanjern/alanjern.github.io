@@ -5,12 +5,20 @@
     <link>https://alanjern.github.io/popular/</link>
       <atom:link href="https://alanjern.github.io/popular/index.xml" rel="self" type="application/rss+xml" />
     <description>Populars</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 03 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 02 Mar 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png</url>
       <title>Populars</title>
       <link>https://alanjern.github.io/popular/</link>
     </image>
+    
+    <item>
+      <title>Deepfake Luke Skywalker Should Scare Us</title>
+      <link>https://alanjern.github.io/popular/nautilus22/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/popular/nautilus22/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>The intelligent life of droids</title>
