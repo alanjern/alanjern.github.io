@@ -5,12 +5,20 @@
     <link>https://alanjern.github.io/publication/</link>
       <atom:link href="https://alanjern.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
     <description>Journal articles</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 May 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png</url>
       <title>Journal articles</title>
       <link>https://alanjern.github.io/publication/</link>
     </image>
+    
+    <item>
+      <title>Do people use social information to improve predictions about everyday events?</title>
+      <link>https://alanjern.github.io/publication/payne-jern-22/</link>
+      <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/publication/payne-jern-22/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>A computational framework for understanding the roles of simplicity and rational support in people&#39;s behavior explanations</title>
