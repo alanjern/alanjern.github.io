@@ -5,12 +5,88 @@
     <link>https://alanjern.github.io/post/</link>
       <atom:link href="https://alanjern.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Blog</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 03 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 07 Jun 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alanjern.github.io/media/icon_hu49e7e73a8a25a7ce4faa6b59c54470ad_17277_512x512_fill_lanczos_center_2.png</url>
       <title>Blog</title>
       <link>https://alanjern.github.io/post/</link>
     </image>
+    
+    <item>
+      <title>An analysis of Reddit&#39;s r/place</title>
+      <link>https://alanjern.github.io/post/an-analysis-of-reddits-r/place/</link>
+      <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/post/an-analysis-of-reddits-r/place/</guid>
+      <description>
+
+
+&lt;p&gt;One of my favorite things on the internet this year was &lt;a href=&#34;https://www.washingtonpost.com/technology/2022/04/04/reddit-place-internet-communities/&#34;&gt;Reddit’s r/place&lt;/a&gt;, a multi-day collaborative art project in which each user could set the color of one pixel every five minutes on a giant 2000x2000 pixel canvas.&lt;/p&gt;
+&lt;p&gt;With millions of users, the result could easily have been a chaotic mess. Instead, subreddit communities coordinated and cooperated to produce something pretty amazing (see the final product at the top of this post).&lt;/p&gt;
+&lt;p&gt;After r/place ended, Reddit &lt;a href=&#34;https://www.reddit.com/r/place/comments/txvk2d/rplace_datasets_april_fools_2022/?utm_source=share&amp;amp;utm_medium=ios_app&amp;amp;utm_name=iossmf&#34;&gt;released all the pixel data&lt;/a&gt; from the event. I thought it might be interesting to see what I could learn from it.&lt;/p&gt;
+&lt;div id=&#34;how-did-the-event-unfold&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How did the event unfold?&lt;/h2&gt;
+&lt;p&gt;One of the most fascinating parts of watching r/place happen was all the ensuing drama – the feuds, the conflicts, the warring factions, the invasions. Groups were constantly battling over territory, there was a purely destructive group known as The Black Void whose goal was just to erase everything with black pixels, and certain areas were frequent targets for vandalism.&lt;/p&gt;
+&lt;p&gt;You can get a sense of all that by watching &lt;a href=&#34;https://youtu.be/K5O3UgLG2Jw&#34;&gt;this timelapse video&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;What did the event look like from the standpoint of the raw data? First, let’s look at pixel placement activity over time.&lt;/p&gt;
+&lt;div id=&#34;overall-activity-over-time&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Overall activity over time 📈&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/plot-pixels-over-time-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The most obvious trend is increasing activity over time. Interest likely went up as more people learned about r/place.&lt;/p&gt;
+&lt;p&gt;The plot also shows moderator activity (the colored bands). This was a point of controversy and speculation – specifically, that admins were censoring stuff they didn’t like. But according to the data, the moderators took a pretty hands-off approach, only intervening 19 times.&lt;/p&gt;
+&lt;p&gt;When they did intervene, they drew a colored square over some objectionable content. The bands in the plot show the colors the mods used; the widths of the bands are relative to the size of the squares the mods drew.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;which-colors-were-most-popular&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Which colors were most popular? 🎨&lt;/h3&gt;
+&lt;p&gt;At two points in the event, the admins increased the number of available pixel colors. By the end, there were 32 colors to pick from.&lt;/p&gt;
+&lt;p&gt;Let’s look at which colors were most popular and when.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Black and white were far and away the most popular colors.&lt;/p&gt;
+&lt;p&gt;You can see the two points when the new sets of colors were introduced. Most of the new colors never overtook the original colors in popularity, but a couple did.&lt;/p&gt;
+&lt;p&gt;Keep in mind that these totals don’t necessarily represent how prevalent a color is in the final canvas. This plot just shows how often people placed pixels with each color. That color may have been overwritten numerous times.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;which-parts-of-the-canvas-were-most-contentious&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Which parts of the canvas were most contentious? 🥊&lt;/h3&gt;
+&lt;p&gt;We can get the best visual sense of the drama that unfolded on r/place by looking at which pixels had the most activity. If a pixel was overwritten many times, that’s a sign that users were fighting over that area of the canvas.&lt;/p&gt;
+&lt;p&gt;In the picture below, I’ve made a heatmap where brighter spots indicate areas where there was more activity and darker spots indicate areas with less activity.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/pixel-activity-heatmap-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The amazing thing about this image is that, if you look carefully, you can make out many parts of the final canvas, like the &lt;a href=&#34;https://place-atlas.stefanocoding.me/#000031&#34;&gt;Turkish flag&lt;/a&gt; or the &lt;a href=&#34;https://place-atlas.stefanocoding.me/#txibq9&#34;&gt;osu! logo&lt;/a&gt;. This shows how contentious these areas were: they were frequently under attack and lots of work was put into preserving them.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The most active pixel was changed nearly 100,000 times&lt;/strong&gt;. It happened to be the most upper-left pixel in the canvas. On the other end of the spectrum, there were nearly 2900 pixels (0.07% of the canvas) that were placed only once for the entire duration of the event. No pixels were completely untouched.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;individual-user-activity&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Individual user activity 💻&lt;/h2&gt;
+&lt;p&gt;One specific question I had was whether most activity was driven by a small fraction of users. This is a common phenomenon online where, for example, a small percentage of users are responsible for the vast majority of comments. This is actually a broader phenomenon known as &lt;a href=&#34;https://en.wikipedia.org/wiki/Zipf%27s_law&#34;&gt;Zipf’s law&lt;/a&gt; in which, essentially, the most common items in a set are vastly more common than the the less common items. Was that true here? For example, I found that over 2.3 million users in this dataset only placed a single pixel.&lt;/p&gt;
+&lt;p&gt;I pulled the top 100,000 most prolific users (i.e., users that placed the most pixels) and plotted the number of pixels they placed in order of their their rank.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/plot-contributors-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The results don’t quite follow Zipf’s law. It turns out the most extremely prolific users (who placed 600+ pixels) weren’t that much more prolific than thousands of others who placed 200+ pixels.&lt;/p&gt;
+&lt;p&gt;Let’s instead look at &lt;em&gt;what&lt;/em&gt; they actually did, starting with the most prolific user, who placed 795 pixels. Below, I’ve traced this user’s path over roughly 3.5 days.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/plot-top-user-activity-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Looking at this user’s most frequent contributions, and after doing a bit of research on &lt;a href=&#34;https://place-atlas.stefanocoding.me/&#34;&gt;the r/place atlas&lt;/a&gt; I inferred that they are a My Little Pony fan. The My Little Pony community apparently started working in the upper left part of the canvas but &lt;a href=&#34;https://place-atlas.stefanocoding.me/#two6gx&#34;&gt;moved to the upper right&lt;/a&gt; and &lt;a href=&#34;https://place-atlas.stefanocoding.me/#000367&#34;&gt;later to the bottom&lt;/a&gt;, due to &lt;a href=&#34;https://place-atlas.stefanocoding.me/#tx5qkx&#34;&gt;conflict with followers of a Twitch streamer&lt;/a&gt;. 🤷&lt;/p&gt;
+&lt;p&gt;This extremely active brony moved around a fair amount. Let’s look at some other users who barely moved at all. In the figure below, I’ve traced the paths of 10 of the least mobile users among the top 1000 most prolific.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The colors here are just meant to distinguish between users.&lt;/p&gt;
+&lt;p&gt;Among these users was one (the upper-leftmost one) who placed 539 pixels in roughly 58 hours. 443 of those pixels were placed in just a single location. That location? The upper left in the &lt;a href=&#34;https://place-atlas.stefanocoding.me/#000111&#34;&gt;“connection lost” area&lt;/a&gt; (some kind of long-running inside joke). The color? &lt;span style=&#34;color: #FF4500;&#34;&gt;Orange-red&lt;/span&gt;. That area pretty much never changed (and was always black). So this person basically accomplished nothing and was almost certainly a bot (more on that in a bit).&lt;/p&gt;
+&lt;p&gt;Another user in the figure above (the lime green colored one in the upper left) placed 501 pixels in a roughly a 50-hour period, all within a 36x41 pixel area. That area? &lt;a href=&#34;https://place-atlas.stefanocoding.me/#twmbw6&#34;&gt;The Canadian flag&lt;/a&gt;. The hilarious tragedy of the Canadian flag is documented &lt;a href=&#34;https://youtu.be/TyVXmpHQOqk&#34;&gt;here&lt;/a&gt;. What is impossible to determine is whether this person was trying to vandalize the flag or repair the vandalism.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-rise-of-the-bots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The rise of the bots 🤖&lt;/h2&gt;
+&lt;p&gt;Another major controversy was over the use of “bots” – scripts that automatically placed pixels for you whenever your five-minute cool-down period was up. They weren’t forbidden, but some people saw them as a kind of cheating.&lt;/p&gt;
+&lt;p&gt;Accusations of widespread bot use were common. But can we find evidence for that in the data?&lt;/p&gt;
+&lt;p&gt;I looked at every user who placed at least 20 pixels. I then looked at the percentage of times they placed a pixel within 303 seconds (5 minutes + 3 seconds) of their last pixel. In other words, how often were they placing pixels almost as soon as they possibly could?&lt;/p&gt;
+&lt;p&gt;Here are the results.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It looks like bots were relatively rare. And contrary to my expectations, even among the users that placed hundreds of pixels, they weren’t generally more likely to be bots. Some people who placed 400+ pixels almost never placed them immediately after their 5 minute cool-off periods, suggesting they were placing them manually.&lt;/p&gt;
+&lt;p&gt;I chose 3 seconds after the cool-off period ended somewhat arbitrarily, so I re-ran the analysis varying this delay from 0 to 10 seconds. Then I computed what percentage of pixels overall were placed within that period of time.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/an-analysis-of-reddits-r/place/index_files/figure-html/plot-proportion-of-fast-returns-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Obviously, the longer the delay, the more pixels get included. But even for delays up to 10 seconds, no more than 15% of all pixels were placed.&lt;/p&gt;
+&lt;p&gt;The bottom line: Surely some people were using scripts. Perhaps as many as 5-10% of pixels were placed by scripts. But this analysis suggests that the vast majority of users weren’t using them and the vast majority of pixels were manually placed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;code&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;The full analysis code I used to generate these plots is available &lt;a href=&#34;https://github.com/alanjern/r-place&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Teaching a seminar-style applied psychology course</title>
