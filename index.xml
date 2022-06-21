@@ -128,6 +128,178 @@ The variance of the distribution is $\sigma^{2}$.
     </item>
     
     <item>
+      <title>Are win streaks on Jeopardy becoming more common?</title>
+      <link>https://alanjern.github.io/post/are-win-streaks-on-jeopardy-becoming-more-common/</link>
+      <pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>https://alanjern.github.io/post/are-win-streaks-on-jeopardy-becoming-more-common/</guid>
+      <description>
+
+
+&lt;p&gt;Three of the top five longest winning streaks in &lt;em&gt;Jeopardy&lt;/em&gt; history have happened during the show’s current 38th season. This has led &lt;a href=&#34;https://www.nytimes.com/2022/01/09/arts/television/jeopardy-streaks-amy-schneider.html?referringSource=articleShare&#34;&gt;some to wonder&lt;/a&gt; whether there has been some kind of paradigm shift in how &lt;em&gt;Jeopardy&lt;/em&gt; is played.&lt;/p&gt;
+&lt;p&gt;It’s possible the answer is yes, but it would be a little surprising for it to happen so suddenly. If something about the game or how people play it were changing, it’s more likely that you’d find changing trends over time.&lt;/p&gt;
+&lt;p&gt;I collected &lt;em&gt;Jeopardy&lt;/em&gt; win data from every episode from &lt;a href=&#34;https://j-archive.com/&#34;&gt;J! Archive&lt;/a&gt;, an unofficial database of questions and outcomes from the show, to see if I could find any trends.&lt;/p&gt;
+&lt;p&gt;(Collecting and organizing this data turned out to be trickier than I expected. I’ll say a bit more about that later, but you can &lt;a href=&#34;#data&#34;&gt;skip ahead&lt;/a&gt; if you’re interested.)&lt;/p&gt;
+&lt;p&gt;I’ll get right to the point. &lt;strong&gt;Is there any evidence of more streaks over time? Not really.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;First, let’s look at the streaks.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/are-win-streaks-on-jeopardy-becoming-more-common/index_files/figure-html/plot-streaks-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This plot starts with Season 20, after a five-win limit was eliminated (shortly after, Ken Jennings began his record-setting run). I’ve highlighted the top five longest streaks. It’s easy to see why the latest cluster at the far right might raise some eyebrows. But is it the tail end of a trend?&lt;/p&gt;
+&lt;p&gt;Let’s look at the number of “long” win streaks over time. I defined a long streak as at least five consecutive wins (the limit when the show began).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/are-win-streaks-on-jeopardy-becoming-more-common/index_files/figure-html/plot-streak-counts-by-season-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;From the plot, it looks like maybe there has been a slight increase in long streaks in the past ~15 seasons, but it’s hard to argue there is a recent uptick (barring Season 38).&lt;/p&gt;
+&lt;p&gt;What about streak length? The plot below shows the distribution of streak lengths for each season.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alanjern.github.io/post/are-win-streaks-on-jeopardy-becoming-more-common/index_files/figure-html/plot-streak-length-by-season-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This plot can be a little confusing at first. Each bar includes most of the win streaks for a season. The darkest shade includes 50% of the win streaks, the medium shade includes 80% of the win streaks, and the lightest shade includes 95% of the win streaks.&lt;/p&gt;
+&lt;p&gt;This plot clearly shows that the most recent season is an extreme outlier. Excluding Season 38, it’s hard to see a clear increasing trend in average streak length, aside from the fact that win streaks got a little longer after the win limit was eliminated.&lt;/p&gt;
+&lt;p&gt;James Holzhauer, one of the show’s record-holders, &lt;a href=&#34;https://www.nytimes.com/2022/01/09/arts/television/jeopardy-streaks-amy-schneider.html?referringSource=articleShare&#34;&gt;doesn’t think&lt;/a&gt; the recent run of streaks is meaningful: “People always assume everything is a paradigm shift … when it’s actually fairly normal for results to occasionally cluster.” I think the data support his interpretation.&lt;/p&gt;
+&lt;div id=&#34;data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The data&lt;/h2&gt;
+&lt;p&gt;J! Archive is an amazing resource, but it’s really designed for human readers to review individual games, not for computers to download massive amounts of data. I ran into a few difficulties with the way the data was formatted in J! Archive. I’ll share a couple of them partly for interest and partly so that if anyone decides to use my data, they will understand it may contain some errors.&lt;/p&gt;
+&lt;div id=&#34;contestant-names&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Contestant names&lt;/h3&gt;
+&lt;p&gt;Each game page includes full contestant names at the top of the page and “nicknames” (usually first names – the names that show up on people’s screens on &lt;em&gt;Jeopardy&lt;/em&gt;) at the bottom of the page with the final scores.&lt;/p&gt;
+&lt;p&gt;This created a challenge because while there is almost certainly only one “James Holzhauer” to compete on &lt;em&gt;Jeopardy&lt;/em&gt;, there’s definitely &lt;em&gt;not&lt;/em&gt; one “James” to ever compete on &lt;em&gt;Jeopardy&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;To figure out streaks, it was helpful to first assign a unique identifier to each contestant, like their full name. Then I could figure out &lt;em&gt;which&lt;/em&gt; James won or lost each game.&lt;/p&gt;
+&lt;p&gt;In most cases, I could just compare the “nicknames” to the full names and look for a match. But some people named James go by Jim, for example, and in those cases, a direct match won’t work. So I had to manually add a bunch of special cases shown below.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;find_full_contestant_name &amp;lt;- function(contestant_list, nickname) {
+  # Remove all non-alpha characters 
+  #(except for hyphen, period, apostrophe, and internal spaces)
+  n &amp;lt;- str_remove_all(nickname, &amp;quot;[^a-zA-Z\\-.&amp;#39; ]&amp;quot;)
+  n &amp;lt;- str_trim(n)
+  
+  # I&amp;#39;ve hard-coded some nicknames here to take care of hard cases in the data
+  if (n == &amp;quot;Mike&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Mike|Michael)&amp;quot;
+  }
+  else if (n == &amp;quot;Dave&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Dave|David)&amp;quot;
+  }
+  else if (n == &amp;quot;Tom&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Tom|Thomas)&amp;quot;
+  }
+  else if (n == &amp;quot;Dottie&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Dottie|Dorothy)&amp;quot;
+  }
+  else if (n == &amp;quot;Ernie&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Ernie|Ernest)&amp;quot;
+  }
+  else if (n == &amp;quot;Charlie&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Charlie|Charles)&amp;quot;
+  }
+  else if (n == &amp;quot;Ray&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Ray|Arthur)&amp;quot;
+  }
+  else if (n == &amp;quot;Sandy&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Sandy|Sandra)&amp;quot;
+  }
+  else if (n == &amp;quot;SSGT Paul&amp;quot;) {
+    n &amp;lt;- &amp;quot;Paul Croshier&amp;quot;
+  }
+  else if (n == &amp;quot;DJ&amp;quot;) {
+    n &amp;lt;- &amp;quot;(DJ|David)&amp;quot;
+  }
+  else if (n == &amp;quot;Sparky&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Sparky|John)&amp;quot;
+  }
+  else if (n == &amp;quot;Air Rob&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Air Rob|Rob)&amp;quot;
+  }
+  else if (n == &amp;quot;BobCat&amp;quot;) {
+    n &amp;lt;- &amp;quot;(BobCat|Bob)&amp;quot;
+  }
+  else if (n == &amp;quot;MaryBeth&amp;quot;) {
+    n &amp;lt;- &amp;quot;(MaryBeth|Mary Beth)&amp;quot;
+  }
+  else if (n == &amp;quot;zgn&amp;quot;) {
+    n &amp;lt;- &amp;quot;Ozgun&amp;quot;
+  }
+  else if (n == &amp;quot;Julin&amp;quot;) {
+    n &amp;lt;- &amp;quot;Julián&amp;quot;
+  }
+  else if (n == &amp;quot;Franois&amp;quot;) {
+    n &amp;lt;- &amp;quot;Francois&amp;quot;
+  }
+  else if (n == &amp;quot;Rene&amp;quot; || n == &amp;quot;Renée&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Rene|Renée)&amp;quot;
+  }
+  else if (n == &amp;quot;Rb&amp;quot;) {
+    n &amp;lt;- &amp;quot;Røb&amp;quot;
+  }
+  else if (n == &amp;quot;Dr. Oz&amp;quot;) {
+    n &amp;lt;- &amp;quot;Dr. Mehmet Oz&amp;quot;
+  }
+  else if (n == &amp;quot;Desire&amp;quot;) {
+    n &amp;lt;- &amp;quot;(Desirée|Desire)&amp;quot;
+  }
+  else if (n == &amp;quot;Frdrique&amp;quot;) {
+    n &amp;lt;- &amp;quot;Frédérique&amp;quot;
+  }
+  else if (n == &amp;quot;Genevive&amp;quot;) {
+    n &amp;lt;- &amp;quot;Geneviève&amp;quot;
+  }
+  else if (n == &amp;quot;Nio&amp;quot;) {
+    n &amp;lt;- &amp;quot;Niño&amp;quot;
+  }
+  else if (n == &amp;quot;Steve-O&amp;quot;) {
+    n &amp;lt;- &amp;quot;Steven&amp;quot;
+  }
+  else if (n == &amp;quot;Csar&amp;quot;) {
+    n &amp;lt;- &amp;quot;César&amp;quot;
+  }
+  else if (n == &amp;quot;Sebastin&amp;quot;) {
+    n &amp;lt;- &amp;quot;Sebastián&amp;quot;
+  }
+  else if (n == &amp;quot;Nadge&amp;quot;) {
+    n &amp;lt;- &amp;quot;Nadège&amp;quot;
+  }
+  else if (n == &amp;quot;Andrs&amp;quot;) {
+    n &amp;lt;- &amp;quot;Andrés&amp;quot;
+  }
+  else if (n == &amp;quot;Ramn&amp;quot;) {
+    n &amp;lt;- &amp;quot;Ramón&amp;quot;
+  }
+  else if (n == &amp;quot;Anglica&amp;quot;) {
+    n &amp;lt;- &amp;quot;Angélica&amp;quot;
+  }
+
+  
+  # Cycle through all names in contestant list and look for a match
+  for (c in contestant_list) {
+    if (!is.na(str_match(str_to_lower(c), str_to_lower(n))[1])) {
+      return(c)
+    }
+  }
+  
+  # No matches found
+  print(paste(contestant_list[1],
+              contestant_list[2],
+              contestant_list[3], n,sep = &amp;quot;,&amp;quot;))
+  stop(&amp;quot;Error: find_full_contestant_name found no name matches.&amp;quot;)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A number of the special cases were to match names that contained characters that I had stripped away at the beginning (which I did because I found a contestant whose nickname was in the archive as “&lt;a href=&#34;https://www.j-archive.com/showgame.php?game_id=1441&#34;&gt;Jen :)&lt;/a&gt;”)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;interrupted-streaks&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Interrupted streaks&lt;/h3&gt;
+&lt;p&gt;Jeopardy occasionally runs special events like tournaments or college championships that are scheduled in advance and interrupt regular play. When identifying streaks, I had to skip past these events somehow.&lt;/p&gt;
+&lt;p&gt;Luckily, J! Archive includes a “comments” field at the top of every page with notes about each episode like whether it was a tournament. So again, I used a brute-force approach, matching the contents of the comments field to a list in order to filter out all these special events.&lt;/p&gt;
+&lt;p&gt;The difficulty, yet again, was figuring out how many different special events there were (I’m still not sure I caught them all). Here’s the snippet of code where I tried to exclude tournaments, championships, kids weeks, celebrity &lt;em&gt;Jeopardy&lt;/em&gt;, and more.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;streaks_by_season &amp;lt;- j_data |&amp;gt; 
+  filter(is.na(str_match(str_to_lower(comments), &amp;quot;tournament&amp;quot;))) |&amp;gt;
+  filter(is.na(str_match(str_to_lower(comments), &amp;quot;championship&amp;quot;))) |&amp;gt;
+  filter(is.na(str_match(str_to_lower(comments), &amp;quot;battle&amp;quot;))) |&amp;gt;
+  filter(is.na(str_match(str_to_lower(comments), &amp;quot;all-star&amp;quot;))) |&amp;gt;
+  filter(is.na(str_match(str_to_lower(comments), &amp;quot;celebrity&amp;quot;))) |&amp;gt;
+  filter(is.na(str_match(str_to_lower(comments), &amp;quot;kids&amp;quot;))) |&amp;gt;
+  filter(is.na(str_match(str_to_lower(comments), &amp;quot;week&amp;quot;))) |&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;code&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Code&lt;/h2&gt;
+&lt;p&gt;The full analysis code I used to generate these plots is available &lt;a href=&#34;https://github.com/alanjern/jeopardy-streaks&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>An analysis of Reddit&#39;s r/place</title>
       <link>https://alanjern.github.io/post/an-analysis-of-reddits-r/place/</link>
       <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
