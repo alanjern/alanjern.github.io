@@ -1,0 +1,20 @@
+---
+title: "The Computational Social Cognition Lab"
+fig-cap-location: top
+---
+
+In the **Computational Social Cognition Lab**, we mostly study how people think about other people. We do this using mathematical, computational, and experimental methods.
+
+I'm not currently taking on new research assistants at the moment.
+
+Here are some photos of past lab members presenting their work.
+
+::: {layout-ncol=2}
+[![Stephen Payne, \'22](./photos/01_stephen.png)](./photos/01_stephen.png)
+
+[![Anna Scott, \'18](./photos/02_anna.jpg)](./photos/02_anna.jpg)
+
+[![Austin Derrow-Pinion, \'18](./photos/03_austin.jpg)](./photos/03_austin.jpg)
+
+[![Nathan Blank, \'17](./photos/04_nathan.jpg)](./photos/04_nathan.jpg)
+:::

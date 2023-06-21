@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Alan Jern"
+  google-analytics: "G-71M9JBSY79"
+  favicon: icon.png
+  twitter-card: true
+  open-graph: true
+  navbar:
+    left:
+      - href: publications/publications.qmd
+        text: Publications
+      - href: teaching/teaching.qmd
+        text: Teaching
+      - href: lab/lab.qmd
+        text: Lab
+      - href: blog/blog.qmd
+        text: Blog
+
+format:
+  html:
+    theme:
+      - cosmo
+      - custom.scss
+    css: styles.css
+    include-in-header: 
+      text: | 
+        <style>figure { padding: 0 2em 0 2em; }</style>
+
+execute: 
+  freeze: true
+
+editor: source
+

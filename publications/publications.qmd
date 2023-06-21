@@ -1,0 +1,69 @@
+---
+title: "Publications"
+---
+
+(\*) denotes student co-author.
+
+## Journal articles
+
+A. Jern, \*A. Derrow-Pinion, & \*AJ Piergiovanni. (2021). [A computational framework for understanding the roles of simplicity and rational support in people's behavior explanations](https://psyarxiv.com/fuwst). *Cognition*. [Blog post](https://alanjern.medium.com/why-are-some-behavior-explanations-more-satisfying-than-others-a95ff56af745). [Code, data, and materials](https://github.com/alanjern/behavior-explanation).
+
+A. Jern. (2018). [People are intuitive economists under the right conditions](https://psyarxiv.com/hjga4). *Behavioral and Brain Sciences*. 
+
+A. Jern. (2018). [A preliminary study of the educational benefits of conducting replications in the classroom](https://psyarxiv.com/vmh5f). *Scholarship of Teaching and Learning in Psychology*. [Data and materials](https://osf.io/7jj5t/).
+
+A. Jern, C. G. Lucas, & C. Kemp. (2017). [People learn other people's preferences through inverse decision-making](https://psyarxiv.com/7v256/). *Cognition*. [Correction](https://doi.org/10.1016/j.cognition.2018.03.012). [Blog post](https://medium.com/@alanjern/how-do-we-learn-what-other-people-like-20f6e1f25930). [Code, data, and materials](https://github.com/alanjern/preferencelearning).
+
+A. Jern & C. Kemp. (2015). [A decision network account of reasoning about other people's choices](https://psyarxiv.com/q96dy). *Cognition*. [Video abstract](https://youtu.be/MVM8WSz3-Zg). [Code, data, and materials](https://github.com/alanjern/decisionnets-cognition-2015).
+
+C. Kemp & A. Jern. (2014). [A taxonomy of inductive problems](./papers/taxonomy_pbr.pdf). *Psychonomic Bulletin & Review*. 
+
+A. Jern, K. K. Chang, & C. Kemp (2014). [Belief polarization is not always rational](./papers/polarization_psychreview14.pdf). *Psychological Review*. [Code and data](https://github.com/alanjern/beliefpolarization-psychreview-2014).
+
+A. Jern & C. Kemp. (2013). [A probabilistic account of exemplar and category generation](./papers/catgen_cognitivepsychology13.pdf). *Cognitive Psychology*. [Code and data](https://github.com/alanjern/categorygeneration-cogpsych-2013). 
+
+## Conference papers
+
+\*S. Payne & A. Jern. (2022). [Do people use social information to improve predictions about everyday events?](./papers/social_prediction_cogsci22.pdf). *Proceedings of the 44th Annual Conference of the Cognitive Science Society*. [Code, data, and materials](https://github.com/jernlab/social-prediction).
+
+\*AJ Piergiovanni & A. Jern. (2015). [Computational principles underlying people's behavior explanations](./papers/behaviorexplanation_cogsci15.pdf). *Proceedings of the 37th Annual Conference of the Cognitive Science Society*. [Code and data](https://github.com/piergiaj/decision-net).
+
+A. Jern & C. Kemp. (2014). [Reasoning about social choices and social relationships](./papers/socialreasoning_cogsci14.pdf). *Proceedings of the 36th Annual Conference of the Cognitive Science Society*.
+
+A. Jern, C. G. Lucas, & C. Kemp. (2011). [Evaluating the inverse decision-making approach to preference learning](./papers/preferencelearning_nips11.pdf). *Advances in Neural Information Processing Systems 24*. 
+
+A. Jern & C. Kemp. (2011). [Capturing mental state reasoning with influence diagrams](./papers/influencediagrams_cogsci11.pdf). *Proceedings of the 33rd Annual Conference of the Cognitive Science Society*. 
+
+C. Kemp, F. Han, & A. Jern. (2011). [Concept learning and modal reasoning](./papers/modalreasoning_cogsci11.pdf). *Proceedings of the 33rd Annual Conference of the Cognitive Science Society*. 
+
+A. Jern & C. Kemp. (2011). [Decision factors that support preference learning](./papers/decisionfactors_cogsci11.pdf). *Proceedings of the 33rd Annual Conference of the Cognitive Science Society*.
+
+C. Kemp & A. Jern. (2009). [Abstraction and relational learning](./papers/relationallearning_nips09.pdf). *Advances in Neural Information Processing Systems 22*. 
+
+A. Jern, K. K. Chang, & C. Kemp. (2009). [Bayesian belief polarization](./papers/beliefpolarization_nips09.pdf). *Advances in Neural Information Processing Systems 22*. [Supporting material](./papers/beliefpolarizationsupport_nips09.pdf).
+
+C. Kemp, A. Jern, & F. Xu. (2009). [Object discovery and identification](./papers/objectdiscovery_nips09.pdf). *Advances in Neural Information Processing Systems 22*. 
+
+C. Kemp & A. Jern. (2009). [A taxonomy of inductive problems](./papers/taxonomy_cogsci09.pdf). *Proceedings of the 31st Annual Conference of the Cognitive Science Society*.
+
+A. Jern & C. Kemp. (2009). [Category generation](./papers/catgen_cogsci09.pdf). *Proceedings of the 31st Annual Conference of the Cognitive Science Society*. 
+
+## Popular science articles
+
+[Deepfake Luke Skywalker should scare us](https://nautil.us/deepfake-luke-skywalker-should-scare-us-14254/). Nautilus. March 2, 2022.
+
+[The intelligent life of droids](https://nautil.us/the-intelligent-life-of-droids-238140/). Nautilus. March 3, 2021.
+
+[Effective altruism is logical, but too unnatural to catch on](https://psyche.co/ideas/effective-altruism-is-logical-but-too-unnatural-to-catch-on). Psyche. October 13, 2020.
+
+[Covid-19 death skepticism, explained by a cognitive scientist](https://www.vox.com/2020/9/1/21410352/cdc-6-percent-covid-19-deaths-comorbidities). Vox. September 1, 2020.
+
+[HBO's My Brilliant Friend: A glance into the reality of child prodigies](https://culturico.com/2020/04/30/hbos-my-brilliant-friend-a-glance-into-the-reality-of-child-prodigies/). Culturico. April 30, 2020.
+
+[Could stabbing yourself help you remember? The cognitive psychology behind a scene from Netflix's Altered Carbon](https://cogbites.org/2020/03/16/state-dependent-memory/). March 16, 2020.
+
+[There are no "good" or "bad" people](https://areomagazine.com/2020/03/06/there-are-no-good-or-bad-people/). Areo. March 6, 2020.
+
+[What HBO's Westworld gets wrong (and right) about human nature](https://theconversation.com/what-hbos-westworld-gets-wrong-and-right-about-human-nature-67286). The Conversation. November 3, 2016.
+
+[Enough with the spoiler alerts! Plot spoilers often increase enjoyment](https://theconversation.com/enough-with-the-spoiler-alerts-plot-spoilers-often-increase-enjoyment-62154). The Conversation. July 14, 2016.

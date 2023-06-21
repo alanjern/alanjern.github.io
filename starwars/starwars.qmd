@@ -1,0 +1,73 @@
+---
+title: "Star Wars around the world"
+---
+
+::: {layout-ncol=2}
+[![Washington, D.C., 1997](./photos/01-smithsonian.jpg)](./photos/01-smithsonian.jpg)
+
+[![San Francisco, 1998](./photos/02-sfmayhew.jpg)](./photos/02-sfmayhew.jpg)
+
+[![Fresno, October 1998](./photos/03-fresno.jpg)](./photos/03-fresno.jpg)
+
+[![Los Angeles, May 2004](./photos/04-e3.jpg)](./photos/04-e3.jpg)
+
+[![Baltimore, July 2007](./photos/05-baltimore.jpg)](./photos/05-baltimore.jpg)
+
+[![Disneyland, November 2007](./photos/06-disneyland.jpg)](./photos/06-disneyland.jpg)
+
+[![Boston, October 2009](./photos/07-boston.jpg)](./photos/07-boston.jpg)
+
+[![Pittsburgh, November 2009](./photos/08-concert.jpg)](./photos/08-concert.jpg)
+
+[![Pittsburgh, April 2010](./photos/09-sciencecenter.jpg)](./photos/09-sciencecenter.jpg)
+
+[![Washington, D.C, April 2011](./photos/10-smithsonian2011.jpg)](./photos/10-smithsonian2011.jpg)
+
+[![Pittsburgh, Februrary 2012](./photos/11-episodei3d.jpg)](./photos/11-episodei3d.jpg)
+
+[![Indianapolis, August 2013](./photos/12-indy.jpg)](./photos/12-indy.jpg)
+
+[![Seattle, July 2014](./photos/13-seattle.jpg)](./photos/13-seattle.jpg)
+
+[![Hollywood, October 2014](./photos/14-hollywood.jpg)](./photos/14-hollywood.jpg)
+
+[![Terre Haute, Indiana, December 2014](./photos/15-terrehaute.jpg)](./photos/15-terrehaute.jpg)
+
+[![Disneyland, December 2014](./photos/16-disneyland2014.jpg)](./photos/16-disneyland2014.jpg)
+
+[![Mackinac Island, Michigan, June 2015](./photos/17-mackinac.jpg)](./photos/17-mackinac.jpg)
+
+[![London, July 2015](./photos/18-london.jpg)](./photos/18-london.jpg)
+
+[![Fresno, December 2015](./photos/19-fresnoTFA.jpg)](./photos/19-fresnoTFA.jpg)
+
+[![St. Louis, April, 2016](./photos/20-stlouis.jpg)](./photos/20-stlouis.jpg)
+
+[![Seattle, July 2016](./photos/21-seattle.jpg)](./photos/21-seattle.jpg)
+
+[![New York City, August 2016](./photos/22-nyc.jpg)](./photos/22-nyc.jpg)
+
+[![Disney World, February 2017](./photos/23-disneyworld17.jpg)](./photos/23-disneyworld17.jpg)
+
+[![Fort Wayne, Indiana, April 2017](./photos/24-ftwayne.jpg)](./photos/24-ftwayne.jpg)
+
+[![St. Petersburg, Florida, January 2018](./photos/25-stpetersburg.jpg)](./photos/25-stpetersburg.jpg)
+
+[![Disneyland, June 2018](./photos/26-disneyland2018.jpg)](./photos/26-disneyland2018.jpg)
+
+[![Madison, Wisconsin, July 2018](./photos/27-madison.jpg)](./photos/27-madison.jpg)
+
+[![Niagara Falls, October 2018](./photos/28-niagara.jpg)](./photos/28-niagara.jpg)
+
+[![Chicago, April 2019](./photos/29-chicago.jpg)](./photos/29-chicago.jpg)
+
+[![Indianapolis, December 2019](./photos/30-indy2019.jpg)](./photos/30-indy2019.jpg)
+
+[![San Francisco, February 2020](./photos/31-lucasfilm.jpg)](./photos/31-lucasfilm.jpg)
+
+[![Cincinnati, April 2021](./photos/32-cincinnati.jpg)](./photos/32-cincinnati.jpg)
+
+[![Pittsburgh, May 2021](./photos/33-pittsburgh21.jpg)](./photos/33-pittsburgh21.jpg)
+
+[![Disneyland, August 2022](./photos/34-disneyland22.jpeg)](./photos/34-disneyland22.jpeg)
+:::

@@ -1,0 +1,582 @@
+---
+title: "An analysis of Reddit's r/place"
+date: 06-07-2022
+author: Alan Jern
+categories: [Data Analysis]
+image: "featured.png"
+subtitle: "My favorite thing on the Internet this year was Reddit's r/place, a collaborative art project that lasted several days. Analyzing the official data from the event released by Reddit, I found that, contrary to my expectations, activity wasn't dominated by a small fraction of users and bots were relatively rare."
+---
+
+![The final r/place canvas.](featured.png)
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r library}
+library(DBI)
+library(RPostgres)
+library(tidyverse)
+library(lubridate)
+```
+
+```{r db-connect}
+con <- dbConnect(RPostgres::Postgres(),
+                 dbname = 'rplace',
+                 host = 'localhost',
+                 port = '5432',
+                 user = 'alanjern',
+                 password = '')
+pixels <- tbl(con, "pixels")
+```
+
+One of my favorite things on the internet this year was [Reddit's r/place](https://www.washingtonpost.com/technology/2022/04/04/reddit-place-internet-communities/), a multi-day collaborative art project in which each user could set the color of one pixel every five minutes on a giant 2000x2000 pixel canvas.
+
+With millions of users, the result could easily have been a chaotic mess. Instead, subreddit communities coordinated and cooperated to produce something pretty amazing (see the final product at the top of this post).
+
+After r/place ended, Reddit [released all the pixel data](https://www.reddit.com/r/place/comments/txvk2d/rplace_datasets_april_fools_2022/?utm_source=share&utm_medium=ios_app&utm_name=iossmf) from the event. I thought it might be interesting to see what I could learn from it.
+
+## How did the event unfold?
+
+One of the most fascinating parts of watching r/place happen was all the ensuing drama -- the feuds, the conflicts, the warring factions, the invasions. Groups were constantly battling over territory, there was a purely destructive group known as The Black Void whose goal was just to erase everything with black pixels, and certain areas were frequent targets for vandalism.
+
+You can get a sense of all that by watching [this timelapse video](https://youtu.be/K5O3UgLG2Jw).
+
+What did the event look like from the standpoint of the raw data? First, let's look at pixel placement activity over time.
+
+```{r pixel-counts-by-minute}
+pixel_count_by_minute <- pixels |> 
+  mutate(day = yday(timestamp), 
+         hour = hour(timestamp),
+         minute = minute(timestamp)) |> 
+  group_by(day, hour, minute) |> 
+  summarize(count = n()) |> 
+  collect() |> 
+  mutate(time = make_datetime(year = 2022, day = day, hour = hour, min = minute))
+
+```
+
+```{r moderator-intervention}
+
+moderation <- pixels |> mutate(x1 = sql("SPLIT_PART(coordinate, ',', 1)"),
+                 y1 = sql("SPLIT_PART(coordinate, ',', 2)"),
+                 x2 = sql("SPLIT_PART(coordinate, ',', 3)"),
+                 y2 = sql("SPLIT_PART(coordinate, ',', 4)")) |> 
+  filter(x2 != "" & y2 != "") |> 
+  collect() |> 
+  mutate(x1 = as.numeric(x1),
+         y1 = 1999-as.numeric(y1),
+         x2 = as.numeric(x2),
+         y2 = 1999-as.numeric(y2)) |> 
+  mutate(box_area = (x2-x1)*(y1-y2),
+         log_box_area = log(box_area))
+
+```
+
+### Overall activity over time 📈
+
+```{r plot-pixels-over-time}
+# pixel_count_by_minute <- pixel_count_by_minute |> 
+#   mutate(time = make_datetime(year = 2022, day = day, hour = hour, min = minute))
+
+ggplot() +
+  geom_vline(data = moderation, 
+             aes(xintercept = timestamp,
+                 color = pixel_color,
+                 size = box_area),
+             alpha = 0.4) +
+    geom_line(data = pixel_count_by_minute, aes(x = time, y = as.numeric(count))) +
+  theme_minimal() +
+  theme(legend.position = 'none') +
+  labs(title = "r/place activity over time",
+       subtitle = "Vertical bands show moderator activity",
+       x = NULL,
+       y = "Number of pixels placed")
+
+
+```
+
+The most obvious trend is increasing activity over time. Interest likely went up as more people learned about r/place.
+
+The plot also shows moderator activity (the colored bands). This was a point of controversy and speculation -- specifically, that admins were censoring stuff they didn't like. But according to the data, the moderators took a pretty hands-off approach, only intervening 19 times.
+
+When they did intervene, they drew a colored square over some objectionable content. The bands in the plot show the colors the mods used; the widths of the bands are relative to the size of the squares the mods drew.
+
+### Which colors were most popular? 🎨
+
+At two points in the event, the admins increased the number of available pixel colors. By the end, there were 32 colors to pick from.
+
+Let's look at which colors were most popular and when.
+
+```{r pixel-colors-over-time}
+color_count_by_minute <- pixels |> 
+  mutate(day = yday(timestamp), 
+         hour = hour(timestamp),
+         minute = minute(timestamp)) |> 
+  group_by(day, hour, minute, pixel_color) |> 
+  summarize(count = n()) |> 
+  collect()
+```
+
+```{r}
+color_counts_over_time <- color_count_by_minute |> 
+  mutate(time = make_datetime(year = 2022, day = day, hour = hour, min = minute)) |> 
+  ungroup() |> 
+  select(pixel_color, time, count) |> 
+  group_by(pixel_color) |> 
+  arrange(time) |> 
+  mutate(count = as.numeric(count),
+         cumulative_count = cumsum(count)) |> 
+  ungroup()
+
+pixel_cols <- c("#000000" = "#000000", 
+                "#00756F" = "#00756F", 
+                "#009EAA" = "#009EAA",
+                "#00A368" = "#00A368",
+                "#00CC78" = "#00CC78",
+                "#00CCC0" = "#00CCC0",
+                "#2450A4" = "#2450A4",
+                "#3690EA" = "#3690EA",
+                "#493AC1" = "#493AC1",
+                "#515252" = "#515252",
+                "#51E9F4" = "#51E9F4",
+                "#6A5CFF" = "#6A5CFF",
+                "#6D001A" = "#6D001A",
+                "#6D482F" = "#6D482F",
+                "#7EED56" = "#7EED56",
+                "#811E9F" = "#811E9F",
+                "#898D90" = "#898D90",
+                "#94B3FF" = "#94B3FF",
+                "#9C6926" = "#9C6926",
+                "#B44AC0" = "#B44AC0",
+                "#BE0039" = "#BE0039",
+                "#D4D7D9" = "#D4D7D9",
+                "#DE107F" = "#DE107F",
+                "#E4ABFF" = "#E4ABFF",
+                "#FF3881" = "#FF3881",
+                "#FF4500" = "#FF4500",
+                "#FF99AA" = "#FF99AA",
+                "#FFA800" = "#FFA800",
+                "#FFB470" = "#FFB470", 
+                "#FFD635" = "#FFD635",
+                "#FFF8B8" = "#FFF8B8",
+                "#FFFFFF" = "#FFFFFF")
+
+ggplot(data = color_counts_over_time,
+       aes(x = time, y = cumulative_count, 
+           group = pixel_color, color = pixel_color)) +
+  geom_line(alpha = 0.8, size = 1.1) +
+  scale_y_log10(labels = scales::label_comma()) +
+  scale_color_manual(values = pixel_cols) +
+  theme(legend.position = "none") +
+  labs(title = "Cumulative pixels placed",
+       subtitle = "Line color corresponds to pixel color",
+       x = NULL,
+       y = NULL)
+```
+
+Black and white were far and away the most popular colors.
+
+You can see the two points when the new sets of colors were introduced. Most of the new colors never overtook the original colors in popularity, but a couple did.
+
+Keep in mind that these totals don't necessarily represent how prevalent a color is in the final canvas. This plot just shows how often people placed pixels with each color. That color may have been overwritten numerous times.
+
+### Which parts of the canvas were most contentious? 🥊
+
+We can get the best visual sense of the drama that unfolded on r/place by looking at which pixels had the most activity. If a pixel was overwritten many times, that's a sign that users were fighting over that area of the canvas.
+
+In the picture below, I've made a heatmap where brighter spots indicate areas where there was more activity and darker spots indicate areas with less activity.
+
+```{r pixel-activity}
+pixel_activity <- pixels |> 
+  group_by(coordinate) |> 
+  summarize(count = n()) |> 
+  collect()
+```
+
+```{r}
+pixel_activity_counts <- pixel_activity |> 
+  separate(coordinate, 
+           c("x1","y1","x2","y2")) |> 
+  mutate(x1 = as.numeric(x1),
+         y1 = 1999-as.numeric(y1),
+         x2 = as.numeric(x2),
+         y2 = 1999-as.numeric(y2),
+         num_pixels_placed = as.numeric(count)) |> 
+  select(x1,y1,num_pixels_placed)
+```
+
+```{r pixel-activity-heatmap, fig.dim=c(7,7)}
+library(png)
+library(ggpubr)
+rplace_final <- readPNG(source = "final-rplace-faded.png")
+
+ggplot(data = pixel_activity_counts,
+       aes(x = x1, y = y1, fill = log(num_pixels_placed))) +
+  #background_image(rplace_final) +
+  #geom_tile(alpha = 0.8) +
+  geom_tile() +
+  theme(legend.position = "none",
+        axis.ticks = element_blank()) +
+  scale_fill_gradient(low = "#0047ba", high = "#fff30d") +
+  scale_x_continuous(limits = c(0,1999), 
+                     labels = NULL,
+                     expand = c(0,0)) +
+  scale_y_continuous(limits = c(0,1999), 
+                     labels = NULL,
+                     expand = c(0,0)) +
+  labs(x = NULL,
+       y = NULL)
+```
+
+The amazing thing about this image is that, if you look carefully, you can make out many parts of the final canvas, like the [Turkish flag](https://place-atlas.stefanocoding.me/#000031) or the [osu! logo](https://place-atlas.stefanocoding.me/#txibq9). This shows how contentious these areas were: they were frequently under attack and lots of work was put into preserving them.
+
+**The most active pixel was changed nearly 100,000 times**. It happened to be the most upper-left pixel in the canvas. On the other end of the spectrum, there were nearly 2900 pixels (0.07% of the canvas) that were placed only once for the entire duration of the event. No pixels were completely untouched.
+
+## Individual user activity 💻
+
+One specific question I had was whether most activity was driven by a small fraction of users. This is a common phenomenon online where, for example, a small percentage of users are responsible for the vast majority of comments. This is actually a broader phenomenon known as [Zipf's law](https://en.wikipedia.org/wiki/Zipf%27s_law) in which, essentially, the most common items in a set are vastly more common than the the less common items. Was that true here? For example, I found that over 2.3 million users in this dataset only placed a single pixel.
+
+I pulled the top 100,000 most prolific users (i.e., users that placed the most pixels) and plotted the number of pixels they placed in order of their their rank.
+
+```{r top-contributors}
+
+top_contributors <- pixels |> group_by(user_id) |> 
+  summarize(num_pixels = n()) |> 
+  slice_max(num_pixels, order_by = num_pixels, n = 100000) |> 
+  collect()
+
+# Save this back in the DB
+copy_to(con, top_contributors)
+```
+
+```{r}
+n_single_pixels <- pixels |> group_by(user_id) |> 
+  summarize(num_pixels = n()) |> 
+  group_by(num_pixels) |> 
+  summarize(n = n()) |> 
+  filter(num_pixels == 1) |> 
+  collect()
+```
+
+```{r plot-contributors}
+top_contributors <- top_contributors %>%
+  mutate(num_pixels = as.numeric(num_pixels),
+         rank = row_number())
+
+ggplot(data = top_contributors,
+       aes(x = rank, y = num_pixels)) +
+  geom_line() +
+  labs(title = "Most prolific users",
+       x = "Rank (by pixels placed)",
+       y = "Number of pixels placed")
+```
+
+The results don't quite follow Zipf's law. It turns out the most extremely prolific users (who placed 600+ pixels) weren't that much more prolific than thousands of others who placed 200+ pixels.
+
+```{r most-prolific-user-activity}
+top_1000_users_pixels <- tbl(con, "top_contributors") |>
+  slice_max(num_pixels, order_by = num_pixels, n = 1000) |>
+  left_join(pixels, "user_id") |>
+  collect()
+```
+
+```{r}
+library(broman)
+
+color_mean <- function(colors) {
+  # colors: an array of character arrays of hex color codes
+  # returns a hex color code that is the average of the input colors
+  
+  # 1. Strip off the pound sign
+  cs <- str_remove(colors, "#")
+  # 2. Use map / str_sub to extract the three color parts
+  r_codes <- cs |> map(function(x) str_sub(x,1,2))
+  g_codes <- cs |> map(function(x) str_sub(x,3,4))
+  b_codes <- cs |> map(function(x) str_sub(x,5,6))
+  # 3. Convert to decimal and compute means
+  r_mean <- mean(broman::hex2dec(r_codes))
+  g_mean <- mean(broman::hex2dec(g_codes))
+  b_mean <- mean(broman::hex2dec(b_codes))
+  # 4. Convert back to hex (round to nearest integer)
+  r_hex <- broman::convert2hex(round(r_mean))
+  g_hex <- broman::convert2hex(round(g_mean))
+  b_hex <- broman::convert2hex(round(b_mean))
+  # 5. Construct the parts back into a valid hex string
+  return(str_glue("#", r_hex, g_hex, b_hex))
+}
+```
+
+```{r}
+
+t1000 <- top_1000_users_pixels |>
+  separate(coordinate,
+           c("x1","y1","x2","y2")) |>
+  mutate(x1 = as.numeric(x1),
+         y1 = as.numeric(y1),
+         x2 = as.numeric(x2),
+         y2 = as.numeric(y2),
+         num_pixels = as.numeric(num_pixels)) |>
+  group_by(user_id) |>
+  # Compute average pixel color and pixel location for each user
+  summarize(avg_x = mean(x1), avg_y = mean(y1),
+            sd_x = sd(x1), sd_y = sd(y1),
+            combined_variance = sd_x + sd_y,
+            avg_color = color_mean(pixel_color),
+            num_pixels = max(num_pixels)) |>
+  arrange(desc(num_pixels)) |>
+  mutate(rank = row_number()) |>
+  arrange(combined_variance)
+
+
+```
+
+Let's instead look at *what* they actually did, starting with the most prolific user, who placed 795 pixels. Below, I've traced this user's path over roughly 3.5 days.
+
+```{r plot-top-user-activity, fig.dim=c(7,7)}
+top_user <- top_1000_users_pixels |> 
+  filter(num_pixels == max(num_pixels)) |> 
+  separate(coordinate, 
+           c("x1","y1","x2","y2")) |> 
+  mutate(x1 = as.numeric(x1),
+         y1 = 1999-as.numeric(y1),
+         x2 = as.numeric(x2),
+         y2 = 1999-as.numeric(y2)) |> 
+  arrange(timestamp)
+
+ggplot(data = top_user) +
+  background_image(rplace_final) +
+  geom_path(aes(x = x1, y = y1), alpha = 0.5) +
+  theme(legend.position = "none",
+        axis.ticks = element_blank()) +
+  scale_x_continuous(limits = c(0,1999), 
+                     labels = NULL,
+                     expand = c(0,0)) +
+  scale_y_continuous(limits = c(0,1999), 
+                     labels = NULL,
+                     expand = c(0,0)) +
+  labs(x = NULL,
+       y = NULL)
+
+```
+
+Looking at this user's most frequent contributions, and after doing a bit of research on [the r/place atlas](https://place-atlas.stefanocoding.me/) I inferred that they are a My Little Pony fan. The My Little Pony community apparently started working in the upper left part of the canvas but [moved to the upper right](https://place-atlas.stefanocoding.me/#two6gx) and [later to the bottom](https://place-atlas.stefanocoding.me/#000367), due to [conflict with followers of a Twitch streamer](https://place-atlas.stefanocoding.me/#tx5qkx). 🤷
+
+This extremely active brony moved around a fair amount. Let's look at some other users who barely moved at all. In the figure below, I've traced the paths of 10 of the least mobile users among the top 1000 most prolific.
+
+```{r fig.dim=c(7,7)}
+# Get user IDs
+least_moving_user_ranks <- c(457,285,72,512,242,125,153,282,418,583)
+least_moving_user_ids <- t1000 |> 
+  # extract the least-moving top users
+  filter(rank %in% least_moving_user_ranks) |> 
+  pull(user_id)
+
+least_moving_user_pixels <- top_1000_users_pixels |> 
+  filter(user_id %in% least_moving_user_ids) |> 
+  separate(coordinate, 
+           c("x1","y1","x2","y2")) |> 
+  mutate(x1 = as.numeric(x1),
+         y1 = 2000-as.numeric(y1),
+         x2 = as.numeric(x2),
+         y2 = 2000-as.numeric(y2)) |> 
+  arrange(timestamp)
+
+ggplot(data = least_moving_user_pixels) +
+  background_image(rplace_final) +
+  geom_path(aes(x = x1, y = y1, color = user_id), alpha = 0.8) +
+  scale_color_viridis_d() +
+  theme(legend.position = "none",
+        axis.ticks = element_blank()) +
+  scale_x_continuous(limits = c(0,1999), 
+                     labels = NULL,
+                     expand = c(0,0)) +
+  scale_y_continuous(limits = c(0,1999), 
+                     labels = NULL,
+                     expand = c(0,0)) +
+  labs(x = NULL,
+       y = NULL)
+
+```
+
+The colors here are just meant to distinguish between users.
+
+Among these users was one (the upper-leftmost one) who placed 539 pixels in roughly 58 hours. 443 of those pixels were placed in just a single location. That location? The upper left in the ["connection lost" area](https://place-atlas.stefanocoding.me/#000111) (some kind of long-running inside joke). The color? [Orange-red]{style="color: #FF4500;"}. That area pretty much never changed (and was always black). So this person basically accomplished nothing and was almost certainly a bot (more on that in a bit).
+
+Another user in the figure above (the lime green colored one in the upper left) placed 501 pixels in a roughly a 50-hour period, all within a 36x41 pixel area. That area? [The Canadian flag](https://place-atlas.stefanocoding.me/#twmbw6). The hilarious tragedy of the Canadian flag is documented [here](https://youtu.be/TyVXmpHQOqk). What is impossible to determine is whether this person was trying to vandalize the flag or repair the vandalism.
+
+## The rise of the bots 🤖
+
+Another major controversy was over the use of "bots" -- scripts that automatically placed pixels for you whenever your five-minute cool-down period was up. They weren't forbidden, but some people saw them as a kind of cheating.
+
+Accusations of widespread bot use were common. But can we find evidence for that in the data?
+
+I looked at every user who placed at least 20 pixels. I then looked at the percentage of times they placed a pixel within 303 seconds (5 minutes + 3 seconds) of their last pixel. In other words, how often were they placing pixels almost as soon as they possibly could?
+
+Here are the results.
+
+```{r bot-estimate}
+pixel_timing <- pixels |> 
+  group_by(user_id) |> 
+  arrange(timestamp) |> 
+  mutate(time_between_pixels = timestamp - lag(timestamp)) |>
+  ungroup() |> 
+  mutate(secs_between_pixels = sql("EXTRACT(EPOCH FROM time_between_pixels)")) |> 
+  mutate(fast_return = case_when(
+    # if they placed within 5 minutes + 3 seconds (303 seconds)
+    time_between_pixels <= sql("interval '303 seconds'") ~ 1,
+    TRUE ~ 0
+  )) |> 
+  group_by(user_id) |> 
+  summarize(num_pixels = n(), prop_fast_returns = mean(fast_return, na.rm = TRUE)) |> 
+  filter(num_pixels >= 20) |> # ignore users who placed less than 20 pixels 
+  select(num_pixels, prop_fast_returns) |> 
+  collect()
+```
+
+```{r}
+at_least_20_pixels_users <- pixels |> 
+  group_by(user_id) |> 
+  summarize(num_pixels = n()) |> 
+  filter(num_pixels >= 20) |> # ignore users who placed less than 20 pixels 
+  select(user_id) |> 
+  collect()
+```
+
+```{r}
+# Save back into DB
+copy_to(con, at_least_20_pixels_users)
+```
+
+```{r bot-estimate-variable}
+
+at_least_20 <- tbl(con, "at_least_20_pixels_users")
+
+bot_estimates <- at_least_20 |> 
+  left_join(pixels, by = "user_id") |> 
+  group_by(user_id) |> 
+  arrange(timestamp) |> 
+  mutate(time_between_pixels = timestamp - lag(timestamp)) |>
+  ungroup() |> 
+  mutate(secs_between_pixels = sql("EXTRACT(EPOCH FROM time_between_pixels)")) |> 
+  mutate(fast_return0 = case_when(
+    # if they placed within 5 minutes + 0 seconds
+    time_between_pixels <= sql("interval '300 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |> 
+  mutate(fast_return1 = case_when(
+    # if they placed within 5 minutes + 1 seconds
+    time_between_pixels <= sql("interval '301 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |> 
+  mutate(fast_return2 = case_when(
+    # if they placed within 5 minutes + 2 seconds
+    time_between_pixels <= sql("interval '302 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return3 = case_when(
+    # if they placed within 5 minutes + 3 seconds
+    time_between_pixels <= sql("interval '303 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return4 = case_when(
+    # if they placed within 5 minutes + 4 seconds
+    time_between_pixels <= sql("interval '304 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return5 = case_when(
+    # if they placed within 5 minutes + 5 seconds
+    time_between_pixels <= sql("interval '305 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return6 = case_when(
+    # if they placed within 5 minutes + 6 seconds
+    time_between_pixels <= sql("interval '306 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return7 = case_when(
+    # if they placed within 5 minutes + 7 seconds
+    time_between_pixels <= sql("interval '307 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return8 = case_when(
+    # if they placed within 5 minutes + 8 seconds
+    time_between_pixels <= sql("interval '308 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return9 = case_when(
+    # if they placed within 5 minutes + 9 seconds
+    time_between_pixels <= sql("interval '309 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  mutate(fast_return10 = case_when(
+    # if they placed within 5 minutes + 10 seconds
+    time_between_pixels <= sql("interval '310 seconds'") ~ 1,
+    TRUE ~ 0
+    )) |>  
+  summarize(across(.cols = c("fast_return0", "fast_return1",
+                             "fast_return2", "fast_return3",
+                             "fast_return4", "fast_return5",
+                             "fast_return6", "fast_return7",
+                             "fast_return8", "fast_return9",
+                             "fast_return10"),
+                   ~ mean(., na.rm = TRUE))) |> 
+  collect()
+```
+
+```{r}
+ggplot(data = pixel_timing,
+       aes(x = as.numeric(num_pixels),
+           y = prop_fast_returns)) +
+  #geom_point(alpha = 0.1)
+  geom_hex(bins = 100) +
+  scale_fill_gradient(low = "#022d6e", high = "#00a196") +
+  #guides(fill = guide_legend(title = "# of users")) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  theme_minimal() +
+  labs(title = "r/place \"bots\" were uncommon across the board",
+       subtitle = "Even many of the most productive users did not appear to be using scripts",
+       x = "Number of pixels placed",
+       y = "Pixels placed within 5m3s")
+```
+
+It looks like bots were relatively rare. And contrary to my expectations, even among the users that placed hundreds of pixels, they weren't generally more likely to be bots. Some people who placed 400+ pixels almost never placed them immediately after their 5 minute cool-off periods, suggesting they were placing them manually.
+
+I chose 3 seconds after the cool-off period ended somewhat arbitrarily, so I re-ran the analysis varying this delay from 0 to 10 seconds. Then I computed what percentage of pixels overall were placed within that period of time.
+
+```{r plot-proportion-of-fast-returns}
+bot_prop_estimates <- bot_estimates |> 
+  pivot_longer(cols = 1:11, values_to = "prop") |> 
+  separate(name, c("temp", "delay"), sep = "fast_return") |> 
+  select(delay, prop)
+
+ggplot(data = bot_prop_estimates,
+       aes(x = fct_reorder(delay,prop), y = prop)) +
+  geom_col(fill = "deepskyblue4") +
+  scale_y_continuous(labels = scales::label_percent()) +
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(margin = margin(t = -5)),
+        axis.title.x = element_text(margin = margin(t = 10))) +
+  labs(title = "How quickly were pixels placed on r/place?",
+       subtitle = "Less than 15% of pixels were placed within 10s of the earliest time they could be placed",
+       x = "Seconds after 5 minute cool-off period",
+       y = "Pixels placed")
+```
+
+Obviously, the longer the delay, the more pixels get included. But even for delays up to 10 seconds, no more than 15% of all pixels were placed.
+
+The bottom line: Surely some people were using scripts. Perhaps as many as 5-10% of pixels were placed by scripts. But this analysis suggests that the vast majority of users weren't using them and the vast majority of pixels were manually placed.
+
+```{r db-disconnect}
+dbDisconnect(con)
+```
+
+## Code
+
+The full analysis code I used to generate these plots is available [here](https://github.com/alanjern/r-place).

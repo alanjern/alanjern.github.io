@@ -1,0 +1,370 @@
+---
+title: "Can you save money at Union Hospital by not using insurance?"
+date: 08-27-2021
+author: Alan Jern
+categories: [Data Analysis]
+image: "featured.jpg"
+subtitle: "Depending on your insurance plan, maybe yes, for some procedures."
+description: "Due to a new federal law, hospitals must publish their price lists. The price list for Union Hospital in Terre Haute shows what many other price lists from hospitals around the country do -- that insurers' negotiated prices sometimes don't make sense."
+---
+
+![Image credit: [**Marcelo Leal**](https://unsplash.com/@marceloleal80?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [**Unsplash**](https://unsplash.com/@marceloleal80?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).](featured.jpg)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r library}
+library(tidyverse)
+library(janitor)
+library(forcats)
+library(ggdist)
+library(knitr)
+library(ggrepel)
+library(ggtext)
+library(ggsci)
+```
+
+One of the many frustrating things about health care in the US is not having a clue what things are going to cost. But this year, a new federal law went into effect requiring hospitals to publish all of their prices.
+
+I learned about this after reading [this article in the New York Times](https://www.nytimes.com/interactive/2021/08/22/upshot/hospital-prices.html) by Sarah Kliff and Josh Katz. They analyzed the price lists at a number of hospitals and found some huge disparities in prices for identical treatments at the same hospitals and some puzzling discrepancies in insurers' negotiated prices. Notably, sometimes, the listed price for a treatment negotiated by an insurance company was *higher* than the listed price for a patient with no insurance at all. For insurance plans with high deductibles, this means you could potentially save money by *not* using your insurance for some treatments.
+
+This got me curious about my own insurance and my own local hospital, so I decided to do a similar analysis.
+
+# The data 🗒
+
+```{r load-data}
+chargemaster <- readxl::read_xlsx("union-quadax-file.xlsx",
+                                  col_types = c(
+                                    "text",
+                                    "date",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "text",
+                                    "numeric",
+                                    "text"
+                                  )) %>%
+  clean_names()
+  
+```
+
+Union Hospital, the largest health care provider in my town, makes their price list available [here](https://www.myunionhealth.org/patients-and-visitors/for-patients/billing-and-insurance/online-estimate/). It includes a line for each treatment or procedure for each different insurer. It's admittedly a little hard to make sense of. Here's a small sample of the data.
+
+```{r show-data-sample}
+
+kable(chargemaster %>% 
+        select(code, descr, gross_charge, max_negotiated_charge, min_negotiated_charge, payer, charge) %>%
+        rename("Code" = code,
+               "Description" = descr,
+               "Gross charge" = gross_charge,
+               "Max negotiated charge" = max_negotiated_charge,
+               "Min negotiated charge" = min_negotiated_charge,
+               "Insurer" = payer,
+               "Charge" = charge) %>%
+        head())
+
+
+```
+
+My interpretation of this is that the final column, `Charge`, is the result of the negotiation process and is what should be considered the final negotiated "price" of a procedure. The rest of my analysis is based on that assumption.
+
+# Does my own insurance plan save me money? 💵
+
+My insurance plan is **Anthem Blue Access PPO**. It's part of the Blue Cross Blue Shield association, one of the biggest health insurance companies in the country. Like many people in the US, I get it through my employer and don't really have much of a choice in the matter.
+
+I was first interested in whether Anthem's negotiated prices at Union were at least as good as those charged to people with no insurance. As Matt Eyles, chief executive of America's Health Insurance Plans says in the NYT article, "Insurers want to make sure they are negotiating the best deals they can for their members, to make sure their products have competitive premiums".
+
+```{r plot-anthem-vs-self-pay}
+
+anthem_charges_compared <- chargemaster %>%
+  filter(!is.na(charge)) %>%
+  filter(payer == "Anthem Blue Access" |
+           payer == "Self Pay") %>%
+  select(payer, code, descr, charge) %>%
+  pivot_wider(names_from = payer, values_from = charge) %>%
+  rename(anthem_charge = `Anthem Blue Access`,
+         self_pay_charge = `Self Pay`) %>%
+  mutate(charge_diff = self_pay_charge - anthem_charge,
+         pct_of_self_pay = charge_diff / self_pay_charge) 
+
+# Make labels for special points
+
+l1_colonoscopy <- anthem_charges_compared %>% filter(str_detect(descr, "Colonoscopy"),
+                                   charge_diff < 0) %>%
+  mutate(description = "Colonoscopy") %>%
+  slice(1)
+
+l2_mri <- anthem_charges_compared %>% filter(str_detect(descr, "Magnetic resonance \\(eg, proton\\) imaging"),
+                                             charge_diff < 0) %>%
+  mutate(description = "MRI") %>%
+  slice(1)
+
+l3_ct <- anthem_charges_compared %>% filter(str_detect(descr, "Computed tomography"),
+                                            charge_diff < 0) %>%
+  mutate(description = "CT scan") %>%
+  slice(1)
+
+l4_csection <- anthem_charges_compared %>% filter(str_detect(descr, "cesarean"),
+                                                  charge_diff < 0) %>%
+  mutate(description = "C-section") %>%
+  slice(1)
+
+l5_xray <- anthem_charges_compared %>% filter(str_detect(descr, "Dual-energy X-ray")) %>%
+  mutate(description = "X-ray") %>%
+  slice(1)
+
+descr_labels <- bind_rows(l1_colonoscopy, l2_mri, l3_ct, l4_csection, l5_xray) %>%
+  right_join(anthem_charges_compared) %>%
+  mutate(description = replace_na(description, ""))
+
+ggplot() +
+  geom_abline(slope = 1, intercept = 0,
+              color = "white",
+              size = 2) +
+  geom_point(data = anthem_charges_compared %>% filter(charge_diff >= 0),
+             mapping = aes(x = anthem_charge, y = self_pay_charge),
+             alpha = 0.1, color = "gray50") +
+  geom_point(data = anthem_charges_compared %>% filter(charge_diff < 0),
+             mapping = aes(x = anthem_charge, y = self_pay_charge),
+             alpha = 0.1, color = "darkorchid4") +
+  geom_text_repel(data = descr_labels,
+                  mapping = aes(x = anthem_charge, y = self_pay_charge,
+                                label = description),
+                  max.overlaps = Inf,
+                  size = 3,
+                  box.padding = 0.7,
+                  segment.color = "gray50") +
+  scale_x_log10(limits = c(1,1e6), breaks = c(10, 1e3, 1e5),
+                minor_breaks = c(5, 50, 100, 500,
+                                 5000, 10000, 50000,
+                                 500000),
+                labels = c("$10", "$1,000", "$100,000")) +
+  scale_y_log10(limits = c(1,1e6), breaks = c(10, 1e3, 1e5),
+                minor_breaks = c(5, 50, 100, 500,
+                                 5000, 10000, 50000,
+                                 500000),
+                labels = c("$10", "$1,000", "$100,000")) +
+  labs(
+    x = "Anthem price",
+    y = "Price with no insurance",
+    title = "Are Anthem's negotiated prices competitive?",
+    subtitle = "Procedures in <span style = 'color:darkorchid4';>purple</span> are cheaper *without* insurance"
+  ) +
+  theme(
+    plot.subtitle = element_markdown(),
+    plot.title.position = "plot"
+  )
+
+
+
+```
+
+This plot includes every treatment and procedure in Union's price list (except for some extremely expensive ones). Each point is one procedure. Points that fall below the white diagonal line are actually cheaper with no insurance than with my Anthem insurance. Because there are so many points bunched up near the diagonal, it's hard to tell that actually 91% of the points are on or above the line, suggesting that Anthem's negotiated prices are generally good, relative to having no insurance (they are, unsurprisingly, much higher than Medicare's prices).
+
+```{r compute-percents, echo=FALSE, results='hide'}
+anthem_charges_compared %>% mutate(better_than_no_insurance = charge_diff >= 0) %>%
+  summarize(pct_better = mean(better_than_no_insurance))
+
+anthem_charges_compared %>% filter(str_detect(descr, "Magnetic resonance \\(eg, proton\\) imaging")) %>% summarize(min = min(charge_diff), max = max(charge_diff), med = median(charge_diff))
+
+anthem_charges_compared %>% filter(str_detect(descr, "Computed tomography")) %>% summarize(min = min(charge_diff), max = max(charge_diff), med = median(charge_diff))
+
+```
+
+But what are those remaining 9% of procedures? Imaging seems to account for a few. **Union Hospital charges Anthem about \$350 more for MRIs than it does for patients with no insurance.** And it charges about **\$310 more for CT scans.**
+
+For some other procedures, prices vary depending on several factors, and sometimes Anthem's price is lower, and sometimes it isn't. For example, here are all the prices for colonoscopies in the price list.
+
+```{r colonoscopy-table}
+
+kable(
+  anthem_charges_compared %>% filter(str_detect(descr, "Colonoscopy")) %>%
+    arrange(charge_diff) %>%
+    select(descr, anthem_charge, self_pay_charge) %>%
+        rename("Description" = descr,
+               "Anthem price" = anthem_charge,
+               "No insurance price" = self_pay_charge))
+
+
+```
+
+There doesn't seem to be much rhyme or reason to when the Anthem prices are lower and when the cash (no insurance) prices are lower, but maybe I'm missing something. (There are some similar oddities in the pricing for C-sections.)
+
+```{r c-section-table, echo=FALSE, results='hide'}
+
+kable(
+  anthem_charges_compared %>% filter(str_detect(descr, "cesarean section")) %>%
+    arrange(charge_diff) %>%
+    select(descr, anthem_charge, self_pay_charge) %>%
+        rename("Description" = descr,
+               "Anthem price" = anthem_charge,
+               "No insurance price" = self_pay_charge))
+
+```
+
+```{r compare-prices-for-key-procedures}
+
+# Extract prices for a few key procedures
+
+BIG_INSURERS <- c("Aetna", "Cigna", "Humana", "United", "BCBS")
+
+prices_colonoscopy <- anthem_charges_compared %>% filter(str_detect(descr, "Colonoscopy")) %>%
+  mutate(description = "Colonoscopy")
+
+prices_mri <- anthem_charges_compared %>% filter(str_detect(descr, "Magnetic resonance \\(eg, proton\\) imaging")) %>%
+  mutate(description = "MRI")
+
+prices_ct <- anthem_charges_compared %>% filter(str_detect(descr, "Computed tomography")) %>%
+  mutate(description = "CT scan")
+
+prices_csection <- anthem_charges_compared %>% filter(str_detect(descr, "cesarean section")) %>%
+  mutate(description = "C-section")
+
+prices_xray <- anthem_charges_compared %>% filter(str_detect(descr, "X-ray")) %>%
+  mutate(description = "X-ray")
+
+key_prices <- bind_rows(prices_colonoscopy,
+                        prices_mri,
+                        prices_ct,
+                        prices_csection,
+                        prices_xray) %>%
+  left_join(chargemaster) %>%
+  mutate(payer = str_replace(payer, ".*Aetna.*", "Aetna"),
+         payer = str_replace(payer, ".*Cigna.*", "Cigna"),
+         payer = str_replace(payer, ".*Humana.*", "Humana"),
+         payer = str_replace(payer, ".*United.*", "United"),
+         payer = str_replace(payer, "Anthem Blue Access", "Anthem"),
+         payer = str_replace(payer, "(.*Blue.*|BCBS)", "BCBS"))
+
+ggplot() +
+  geom_jitter(data = key_prices %>% filter(payer != "Anthem") %>%
+                filter(payer != "Self Pay"),
+              mapping = aes(x = charge, y = description),
+              width = 0, height = 0.1,
+              alpha = 0.1, color = "gray70") +
+  geom_jitter(data = key_prices %>% filter(payer == "Self Pay"),
+              mapping = aes(x = charge, y = description),
+              width = 0, height = 0.1, 
+              alpha = 0.5, color = "turquoise4") +
+  geom_jitter(data = key_prices %>% filter(payer == "Anthem"),
+              mapping = aes(x = charge, y = description),
+              width = 0, height = 0.1,
+              alpha = 0.5, color = "violetred4") +
+  scale_x_log10(breaks = c(1e2, 1e3, 1e4),
+                labels = c("$100", "$1,000", "$10,000")) +
+  theme_minimal() +
+  labs(
+    title = "Some procedures are always cheaper with no insurance, some vary",
+    subtitle = "Prices for <span style = color:violetred4;>Anthem</span>, <span style = color:turquoise4>no insurance</span> and <span style = color:gray40;>all other insurers</span>",
+    x = "Price",
+    y = element_blank()
+  ) +
+  theme(
+    plot.subtitle = element_markdown(),
+    plot.title.position = "plot"
+  )
+  
+
+```
+
+# How do Union Hospital's negotiated prices compare overall? 📈
+
+The price list includes prices for nearly 150 different insurance plans. How do the rest of them fare? The plot below replicates the first plot but includes prices from all insurers. I've separated out the five largest private insurers -- Aetna, Cigna, Humana, United, and the Blue Cross Blue Shield Association.
+
+```{r compare-all-insurers}
+
+self_pay <- chargemaster %>%
+  filter(payer == "Self Pay") %>%
+  select(code, descr, charge) %>%
+  rename(self_pay_price = charge)
+
+all_insurers <- chargemaster %>% right_join(self_pay) %>%
+  mutate(payer = str_replace(payer, ".*Aetna.*", "Aetna"),
+         payer = str_replace(payer, ".*Cigna.*", "Cigna"),
+         payer = str_replace(payer, ".*Humana.*", "Humana"),
+         payer = str_replace(payer, ".*United.*", "United"),
+         payer = str_replace(payer, "(.*Blue.*|BCBS)", "BCBS")) %>%
+  filter(payer != "Self Pay") %>%
+  filter(!is.na(charge)) %>%
+  select(code, descr, payer, charge, self_pay_price) %>%
+  mutate(is_big_insurer = case_when(
+    payer %in% BIG_INSURERS ~ "Major insurers",
+    TRUE ~ "Other insurers (including Medicare)"
+  )) %>%
+  mutate(price_diff = self_pay_price - charge,
+         better_than_no_insurance = price_diff >= 0)
+
+ggplot(data = all_insurers,
+       mapping = aes(x = charge, y = self_pay_price, color = is_big_insurer)) +
+  geom_abline(slope = 1, intercept = 0,
+              color = "white",
+              size = 2) +
+  geom_point(alpha = 0.05, size = 0.4, show.legend = FALSE) +
+  facet_wrap(vars(is_big_insurer)) +
+  scale_color_d3() +
+  scale_x_log10(breaks = c(10, 1e3, 1e5, 1e7),
+                minor_breaks = c(5, 
+                                 50, 1e2, 5e2,
+                                 5e3, 1e4,
+                                 5e4, 5e5,
+                                 1e6, 5e6),
+                labels = c("$10", "$1000", "$100,000", "$10,000,000")) +
+  scale_y_log10(breaks = c(10, 1e3, 1e5, 1e7),
+                minor_breaks = c(5, 
+                                 50, 1e2, 5e2,
+                                 5e3, 1e4,
+                                 5e4, 5e5,
+                                 1e6, 5e6),
+                labels = c("$10", "$1000", "$100,000", "$10,000,000")) +
+  labs(
+    title = "Weird pricing in Union Hospital's price list",
+    subtitle = "56% of the time, prices for major insurers are better than cash prices.\nOther insurers beat cash prices only 34% of the time.",
+    x = "Insurer negotiated price",
+    y = "No insurance price"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 20, hjust = 1)
+  )
+  
+
+```
+
+```{r compute-all-insurer-pcts, echo=FALSE, results='hide'}
+
+all_insurers %>% filter(payer %in% BIG_INSURERS) %>%
+  summarize(pct_better = mean(better_than_no_insurance))
+
+all_insurers %>% filter(!(payer %in% BIG_INSURERS)) %>%
+  summarize(pct_better = mean(better_than_no_insurance))
+
+```
+
+Across all procedures, insurers' negotiated prices don't compare very favorably with Union Hospital's cash prices for people with no insurance. The fact that "non-major" insurers' prices beat the cash prices only 34% of the time is especially surprising because that group includes several Medicare plans, whose prices are consistently very low (and almost certainly beat the cash prices every time).
+
+# What does this mean? 🤨
+
+Information like this is potentially important for patients to have. But as the NYT article indicates, price discrepancies and inconsistencies are probably more embarrassing for the insurance companies than for the hospitals because the insurers want to be able to claim that they have negotiated competitive prices.
+
+## How seriously should we take this information?
+
+It's probably hard to be sure. The price that gets charged for medical care surely depends on lots of factors. So I personally wouldn't consider it a guarantee that because an entry in this list shows that a specific procedure is cheaper with no insurance that I'd be better off not using my insurance to get it.
+
+But this information isn't made up either. Hospitals *do* use these price lists as a starting point (at least) for billing. So I think it's reasonable to use these price lists to draw some broadly valid conclusions about the value of your health insurance and the approximate costs of your health care.
+
+## How much does this matter?
+
+One last point I haven't addressed is that the price charged by the hospital is not the same thing as the price you owe as an individual. The difference between a price tag of \$50,000 and \$60,000 may be irrelevant to you if you have health insurance with a deductible of \$2,000 that pays all costs after that deductible is met. So some of these price discrepancies are problems for insurance companies, not for consumers.
+
+But, as you'll note above, some of the cases where Anthem is beat by the "no insurance" rates are well below common deductibles. So these cost differences can affect how much you are paying 💵.
+
+### Code and data 📑
+
+Code and data for this analysis is available [here](https://github.com/alanjern/union-hospital-prices).
