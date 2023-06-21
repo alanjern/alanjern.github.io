@@ -1,0 +1,12 @@
+---
+title: "Blog"
+listing: 
+  contents: posts
+  sort: "date desc"
+  date-format: medium
+  categories: false
+  type: default
+  fields: [title, description, categories, date, image]
+title-block-banner: true
+page-layout: full
+---

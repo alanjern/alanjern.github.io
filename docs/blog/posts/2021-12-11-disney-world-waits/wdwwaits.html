@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Alan Jern">
+<meta name="dcterms.date" content="2021-12-11">
+<meta name="description" content="Using data on posted wait times at Magic Kingdom in Disney World spanning about five years, I looked for seasonal patterns in average wait times. While there is considerable variability, there are clear patterns that you can take advantage of if you are flexible with your visit plans.">
+
+<title>Alan Jern - When are waits lowest at Disney World?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../icon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-71M9JBSY79"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-71M9JBSY79', { 'anonymize_ip': true});
+</script>
+<style>figure { padding: 0 2em 0 2em; }</style>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="Alan Jern - When are waits lowest at Disney World?">
+<meta property="og:description" content="Using data on posted wait times at Magic Kingdom in Disney World spanning about five years, I looked for seasonal patterns in average wait times. While there is considerable variability, there are clear patterns that you can take advantage of if you are flexible with your visit plans.">
+<meta property="og:image" content="featured.jpg">
+<meta property="og:site-name" content="Alan Jern">
+<meta name="twitter:title" content="Alan Jern - When are waits lowest at Disney World?">
+<meta name="twitter:description" content="Using data on posted wait times at Magic Kingdom in Disney World spanning about five years, I looked for seasonal patterns in average wait times. While there is considerable variability, there are clear patterns that you can take advantage of if you are flexible with your visit plans.">
+<meta name="twitter:image" content="featured.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Alan Jern</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../publications/publications.html" rel="" target="">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../teaching/teaching.html" rel="" target="">
+ <span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../lab/lab.html" rel="" target="">
+ <span class="menu-text">Lab</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog/blog.html" rel="" target="">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">When are waits lowest at Disney World?</h1>
+<p class="subtitle lead">Avoid holidays, Fall is generally good, and never go on New Year’s Eve.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Data Analysis</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Using data on posted wait times at Magic Kingdom in Disney World spanning about five years, I looked for seasonal patterns in average wait times. While there is considerable variability, there are clear patterns that you can take advantage of if you are flexible with your visit plans.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alan Jern </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 11, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="featured.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Image credit: <a href="https://unsplash.com/@jayme?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"><strong>Jayme McColgan</strong></a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"><strong>Unsplash</strong></a>.</figcaption>
+</figure>
+</div>
+<p>I love Disney World. I hate waiting in line. Sadly you can’t go to Disney World without waiting in line. But if you plan ahead, you can keep the waiting to a minimum.</p>
+<p>Part of that planning is going at the right time. Visitors are somewhat predictable: they don’t visit uniformly throughout the year. If you have the flexibility, you can minimize your wait times by going when other people aren’t. But when are those times?</p>
+<p>To try to answer that question, I found a great <a href="https://touringplans.com/walt-disney-world/crowd-calendar#DataSets">dataset</a> from Touring Plans of posted wait times for several attractions in each park every few minutes of each day going back to 2015.</p>
+<section id="a-year-at-magic-kingdom-in-waits" class="level2">
+<h2 class="anchored" data-anchor-id="a-year-at-magic-kingdom-in-waits">A year at Magic Kingdom in waits</h2>
+<p>For Magic Kingdom, Touring Plans has data for three attractions: <em>Pirates of the Caribbean</em>, <em>Seven Dwarfs Mine Train</em>, and <em>Splash Mountain</em>. To get a sense of how waits at Magic Kingdom vary over the calender year, I took waits from every day between January 1st, 2015 and March 15, 2020 (the last day Disney World was open before it shut down for Covid), dropped the year (combining, for example, all waits from January 1st from all years), then computed the mean waits for each day of the year based on the three attractions.</p>
+<p>Here are the results.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="wdwwaits_files/figure-html/plot-yearly-average-waits-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The plot also shows US holidays (some holidays fell on different days between 2015 and 2021), and estimates of public school breaks. School breaks vary a lot, so I just went with the <a href="https://www.ocps.net/about_us/calendars/historical_calendars">dates of the Orange County Public School district</a> in Florida, which includes Orlando. The data on US holidays comes from <a href="https://gist.github.com/shivaas/4758439">here</a>.</p>
+<p>There are a few conclusions that you can draw from this plot:</p>
+<ul>
+<li>Waits spike during holidays.</li>
+<li>Waits rise in the summer.</li>
+<li>Waits rise in late March/early April, probably due to Spring break.</li>
+<li>Waits seem to be lowest in the Fall and early December.</li>
+<li>On any given day, waits vary a lot. The gray bands show the boundaries between the 25th and 75th percentiles for waits each day for the five years in the data. For example, the mean wait on January 1st is 52 minutes, but 25% of the posted waits on that day for the three attractions were under 20 minutes and 25% of the posted waits were over 75 minutes.</li>
+<li>New Year’s Eve is hell at Magic Kingdom.</li>
+</ul>
+<p>This plot is already pretty helpful, but it would be nice if we would be a little more precise. That is, can we use a statistical model to say, in quantitative terms, how much better or worse the best and worst times to visit are?</p>
+</section>
+<section id="how-much-of-a-difference-does-the-time-of-year-make" class="level2">
+<h2 class="anchored" data-anchor-id="how-much-of-a-difference-does-the-time-of-year-make">How much of a difference does the time of year make?</h2>
+<p>I fit a linear regression model that used week of the year and whether the day was within a day of a holiday to predict wait times. (Including whether a day was during a school break didn’t make much difference in terms of predictions, probably because week of the year already captured most of what “break time” would.)</p>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<p>On average, <strong>days that are on or near holidays have average waits that are about 6 minutes longer than days that aren’t</strong>.</p>
+<p>The effects of week are shown below. Because the actual wait times are somewhat meaningless (they are just averages of three attractions), I’ve plotted changes in terms of percent. These changes are relative to Week 16 of the year (around mid-April), which is pretty close to an average week at Disney World.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="wdwwaits_files/figure-html/show-modeling-results-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The <strong>best weeks</strong> to visit in terms of low waits are:</p>
+<ul>
+<li>September through early October, when waits can decrease by 20-30% from baseline.</li>
+<li>first half of December, when waits can decrease by about 20% from baseline.</li>
+</ul>
+<p>The <strong>worst weeks</strong> to visit are:</p>
+<ul>
+<li>The last two weeks of the year and the first week of the year, when waits can increase by over 20% from baseline.</li>
+<li>Late March to early April, when waits can increase by about 20% from baseline.</li>
+<li>Mid-July to early August, when waits can increase by 15-20% from baseline.</li>
+</ul>
+<p><strong>And don’t ever go to Disney World on New Years Eve.</strong></p>
+</section>
+</section>
+<section id="how-has-covid-affected-waits" class="level2">
+<h2 class="anchored" data-anchor-id="how-has-covid-affected-waits">How has Covid affected waits?</h2>
+<p>Disney World shut down due to Covid on March 15th, 2020. It reopened on July 11th that same year and has remained open ever since. It changed a lot of its operations after reopening. And, initially, visitors were skittish about returning. So how have wait times changed since reopening?</p>
+<p>To answer this question, I compared the model’s predicted wait times to the posted wait times from the Touring Plans dataset, collected from the date of reopening.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="wdwwaits_files/figure-html/compare-predictions-to-post-covid-data-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><em>Note that there’s a lot of missing data in the Fall of 2020.</em></p>
+<p>This plot suggests that, since reopening, wait times have generally been a little lower than average, except for maybe in July 2021. However, it looks like waits are beginning to return to their usual patterns as of this past Fall. It’s probably too soon to say whether it’s a persisent pattern.</p>
+<p>For comparison, we can do the same analysis for a different park. I fit another model using the same method with Touring Plans data for the Hollywood Studios park in Disney World. Touring Plans provides wait times for four attractions in Hollywood Studios: <em>Rock ‘n’ Roller Coaster</em>, <em>Alien Swirling Saucers</em>, <em>Slinky Dog Dash</em>, and <em>Toy Story Mania</em>.</p>
+<p>Here’s the comparable plot.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="wdwwaits_files/figure-html/compare-hs-preidctions-to-post-covid-data-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The pattern is basically the same. Generally lower-than-expected waits and an apparent return to normal starting this past Fall.</p>
+</section>
+<section id="should-i-book-my-trip" class="level2">
+<h2 class="anchored" data-anchor-id="should-i-book-my-trip">Should I book my trip?</h2>
+<p>Not quite yet.</p>
+<p>As a check, I compared my work to the weekly ranking developed by Dave Shute of <a href="https://yourfirstvisit.net/">yourfirstvisit.net</a>. Dave doesn’t base his recommendations on statistics and data analysis. Instead, they’re based on his years of firsthand knowledge and experience. <a href="https://yourfirstvisit.net/2021/01/11/the-best-weeks-in-2021-to-visit-walt-disney-world-ranked-in-order/">Here</a> are his recommendations for 2021.</p>
+<p><img src="images/yfw_bestweeks_2021.png" class="img-fluid" alt="yourfirsrtvisit’s 2021 Disney World weekly visit rankings"> Surprisingly, his recommendations don’t align with mine much at all. Some of his top-ranked weeks are in the middle of summer. After that, he recommends going in mid-April and early May.</p>
+<section id="whats-going-on" class="level3">
+<h3 class="anchored" data-anchor-id="whats-going-on">What’s going on?</h3>
+<p>First, Dave factors in more than crowd levels. He considers things like weather and ride closures. September may be a low-crowd time but it’s also peak hurricane season. And low-crowd times tend to coincide with suboptimal experiences: Disney is well aware of these seasonal patterns, so they reduce operating hours and schedule attraction refurbishments in the off-season. This means you may get less time in the park and fewer things to do if you go during a less popular time.</p>
+<p><strong>So if your goal is to have the best overall experience (which Dave’s advice is targeted toward), choosing the the lowest-crowd time may not actually be best.</strong></p>
+<p>Second, Dave may have some knowledge not captured in the data. He seems to discount some of the weeks (like in early December) as heavy-crowd times that my analysis predicts will have lower than average waits.</p>
+</section>
+<section id="okay-but-all-i-care-about-is-short-waits.-should-i-book-my-trip-now" class="level3">
+<h3 class="anchored" data-anchor-id="okay-but-all-i-care-about-is-short-waits.-should-i-book-my-trip-now">Okay, but all I care about is short waits. Should I book my trip <em>now</em>?</h3>
+<p>All else being equal, lower waits are better. But is this data giving an accurate picture of wait times? Maybe not.</p>
+<p>Aside from the fact that the dataset only includes a few attractions per park, the data are <em>posted</em> wait times, not <em>actual</em> wait times. Disney is <a href="https://www.disneytouristblog.com/actual-versus-posted-wait-times-disney-world/">notorious</a> for inflating posted wait times. After all, people are happier when they get in a line expecting to wait 30 minutes and only end up waiting 15 than when they get in a line expecting to wait 15 and end up waiting 30.</p>
+<p>Additionally, ever since Disney parks started posting wait times on their mobile apps, it’s been strongly suspected that they intentionally manipulate posted wait times to disperse crowds. For example, they might inflate wait times in Tomorrowland to push people toward Frontierland on the other side of the park. (To learn more about this, along with the fascinating history of FastPasses and their influence on wait times, check out <a href="https://youtu.be/9yjZpBq1XBE">this</a> nearly two-hour long video. It’s really interesting, I promise!)</p>
+<p>So you probably shouldn’t take the absolute numbers too seriously. But if waits are consistently inflated year-round, you can probably expect to encounter shorter waits in September than in June, for example, and you can treat this data as an indirect measure of crowds levels.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>There is a clear seasonal pattern to waits (or, perhaps more accurately, crowd levels) at Disney World. Exactly how much impact this will have on the quality of your visit is hard to say because that depends on many more factors.</p>
+<p><strong><em>But, for the love of God, don’t go to Disney World on New Year’s Eve.</em></strong></p>
+</section>
+<section id="code-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="code-and-data">Code and data</h2>
+<p>Data and the full analysis code I used to generate these plots are available <a href="https://github.com/alanjern/wdw-waits">here</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

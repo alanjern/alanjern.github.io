@@ -1,0 +1,432 @@
+---
+title: "Are win streaks on Jeopardy becoming more common?"
+date: 06-21-2022
+author: Alan Jern
+categories: [Data Analysis]
+image: "featured.jpg"
+subtitle: "Aside from a recent outlier season, probably not."
+description: "A recent unprecedented run of winning streaks on *Jeopardy* has led some to wonder whether something about the show or the contestants has changed. But is there anything in the data to suggest that this is an actual trend? Looking at data from all 38 seasons points to the recent run of streaks more likely being an outlier than part of a trend."
+---
+
+![Amy Schneider on *Jeopardy*.](featured.jpg)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+	warning = FALSE
+)
+```
+
+```{r packages, include=FALSE}
+library(tidyverse)
+library(lubridate)
+```
+
+```{r, include=FALSE}
+j_data <- read_csv("jeopardy_winners.csv")
+```
+
+Three of the top five longest winning streaks in *Jeopardy* history have happened during the show's current 38th season. This has led [some to wonder](https://www.nytimes.com/2022/01/09/arts/television/jeopardy-streaks-amy-schneider.html?referringSource=articleShare) whether there has been some kind of paradigm shift in how *Jeopardy* is played.
+
+It's possible the answer is yes, but it would be a little surprising for it to happen so suddenly. If something about the game or how people play it were changing, it's more likely that you'd find changing trends over time.
+
+I collected *Jeopardy* win data from every episode from [J! Archive](https://j-archive.com/), an unofficial database of questions and outcomes from the show, to see if I could find any trends.
+
+(Collecting and organizing this data turned out to be trickier than I expected. I'll say a bit more about that later, but you can [skip ahead](#data) if you're interested.)
+
+I'll get right to the point. **Is there any evidence of more streaks over time? Not really.**
+
+First, let's look at the streaks.
+
+```{r consecutive-wins, include=FALSE}
+streak_data <- j_data |> 
+  # filter out special games:
+  # - tournaments
+  # - championship games
+  # - "battle of the decades"
+  # - celebrity jeopardy
+  # - kids week / back to school week
+  filter(is.na(str_match(str_to_lower(comments), "tournament"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "championship"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "battle"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "celebrity"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "kids"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "week"))) |>
+  # only look at winners
+  filter(winner == TRUE) |> 
+  arrange(show_number) |> 
+  mutate(total_wins = sequence(rle(contestant)$lengths)) |> 
+  # only keep shows after the win limit was lifted
+  filter(air_date >= "2003-09-08")
+```
+
+```{r plot-streaks, fig.dim=c(9,5), echo=FALSE}
+library(gghighlight)
+library(showtext)
+library(ggthemes)
+
+font_add_google("Inter", "inter")
+font_add_google("Barlow", "barlow")
+font_add_google("Roboto Slab", "rs")
+showtext_auto()
+
+ggplot() +
+  geom_point(data = streak_data,
+             aes(x = air_date, y = total_wins),
+             #color = "#081484",
+             color = "white",
+             size = 0.2) +
+  # highlight the top 5 longest streaks
+  geom_point(data = streak_data |> 
+               filter(contestant == "Ken Jennings" |
+                        contestant == "Amy Schneider" |
+                        contestant == "Matt Amodio" |
+                        contestant == "James Holzhauer" |
+                        contestant == "Mattea Roach"),
+             aes(x = air_date, y = total_wins),
+             #color = "#081484",
+             color = "#FFCC00",
+             size = 0.2) +
+  annotate("text", x = as_datetime("2005-03-01"), y = 65,
+           label = "Ken Jennings",
+           hjust = 0,
+           size = 3,
+           color = "white",
+           family = "barlow") +
+  annotate("text", x = as_datetime("2019-03-01"), y = 26,
+           label = "James Holzhauer",
+           hjust = 1,
+           size = 3,
+           color = "white",
+           family = "barlow") +
+  annotate("segment",
+           x = as_datetime("2021-07-01"),
+           xend = as_datetime("2020-02-01"),
+           y = 29, yend = 43,
+           color = "gray80") +
+  annotate("text", x = as_datetime("2018-09-01"), y = 46,
+           label = "Matt Amodio",
+           hjust = 0,
+           size = 3,
+           color = "white",
+           family = "barlow") +
+  annotate("segment",
+           x = as_datetime("2021-10-01"),
+           xend = as_datetime("2020-07-01"),
+           y = 38, yend = 53,
+           color = "gray80") +
+  annotate("text", x = as_datetime("2019-06-01"), y = 56,
+           label = "Amy Schneider",
+           hjust = 0,
+           size = 3,
+           color = "white",
+           family = "barlow") +
+  annotate("segment",
+           x = as_datetime("2022-06-01"),
+           xend = as_datetime("2022-08-01"),
+           y = 25, yend = 45,
+           color = "gray80") +
+  annotate("text", x = as_datetime("2021-06-01"), y = 48,
+           label = "Mattea Roach",
+           hjust = 0,
+           size = 3,
+           color = "white",
+           family = "barlow") +
+  theme_hc(style = "darkunica") +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        plot.title = element_text(family = "rs"),
+        plot.subtitle = element_text(family = "barlow"),
+        legend.text = element_text(family = "barlow"),
+        legend.title = element_text(family = "barlow"),
+        axis.title = element_text(family = "barlow"),
+        axis.text = element_text(family = "barlow")) +
+  labs(
+    title = "Jeopardy! win streaks after the win limit was eliminated",
+    subtitle = "Each dot is one win • Stacked dots are streaks",
+    x = NULL,
+    y = "Wins",
+    caption = "Data: J! Archive"
+  )
+
+```
+
+This plot starts with Season 20, after a five-win limit was eliminated (shortly after, Ken Jennings began his record-setting run). I've highlighted the top five longest streaks. It's easy to see why the latest cluster at the far right might raise some eyebrows. But is it the tail end of a trend?
+
+Let's look at the number of "long" win streaks over time. I defined a long streak as at least five consecutive wins (the limit when the show began).
+
+```{r streaks-by-season, include=FALSE}
+streaks_by_season <- j_data |> 
+  # filter out special games:
+  # - tournaments
+  # - championship games
+  # - "battle of the decades"
+  # - all-star games
+  # - celebrity jeopardy
+  # - kids week / back to school week
+  filter(is.na(str_match(str_to_lower(comments), "tournament"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "championship"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "battle"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "all-star"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "celebrity"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "kids"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "week"))) |>
+  # only look at winners
+  filter(winner == TRUE) |> 
+  arrange(show_number) |> 
+  mutate(total_wins = sequence(rle(contestant)$lengths)) |> 
+  group_by(contestant, season) |> 
+  summarize(streak_length = max(total_wins)) |> 
+  ungroup()
+```
+
+```{r long-streaks-by-season, include=FALSE}
+long_streaks_by_season <- streaks_by_season |> 
+  mutate(long_streak = streak_length >= 5) |> 
+  group_by(season, long_streak) |> 
+  summarize(n = n()) |> 
+  mutate(prop = n/sum(n))
+```
+
+```{r plot-streak-counts-by-season, echo=FALSE}
+ggplot() +
+  # win limit lifted at beginning of season 20
+  geom_rect(aes(xmin = 0, xmax = 19.5, ymin = -Inf, ymax = Inf),
+            fill = "#00008b", alpha = 0.1) +
+  scale_x_continuous(breaks = c(1,10,20,30,38)) +
+  geom_col(data = long_streaks_by_season |> filter(long_streak == TRUE),
+           aes(x = season, y = n),
+           fill = "lightsteelblue4") +
+  annotate("text", x = 3, y = 7.5,
+           label = "Before Season 20, streaks\nwere limited to 5",
+           hjust = 0,
+           size = 3,
+           family = "barlow") +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(family = "rs"),
+        plot.subtitle = element_text(family = "barlow"),
+        legend.text = element_text(family = "barlow"),
+        legend.title = element_text(family = "barlow"),
+        axis.title = element_text(family = "barlow"),
+        axis.text = element_text(family = "barlow")) +
+  labs(title = "Number of win streaks of at least 5 games each season",
+       x = "Season",
+       y = NULL,
+       caption = "Data: J! Archive")
+
+```
+
+From the plot, it looks like maybe there has been a slight increase in long streaks in the past \~15 seasons, but it's hard to argue there is a recent uptick (barring Season 38).
+
+What about streak length? The plot below shows the distribution of streak lengths for each season.
+
+```{r plot-streak-length-by-season, echo=FALSE}
+library(ggdist)
+
+ggplot() +
+  # win limit lifted at beginning of season 20
+  geom_rect(aes(xmin = 0, xmax = 19.5, ymin = -Inf, ymax = Inf),
+            fill = "#00008b", alpha = 0.1) +
+  scale_x_continuous(breaks = c(1,10,20,30,38)) +
+  stat_interval(data = streaks_by_season,
+                aes(x = season, y = streak_length)) +
+  annotate("text", x = 17, y = 15,
+           label = "Before Season 20, streaks\nwere limited to 5",
+           hjust = 1,
+           size = 3,
+           family = "barlow") +
+  geom_curve(aes(x = 33, xend = 37, y = 25, yend = 28),
+             curvature = -0.2, 
+             arrow = arrow(length = unit(0.2,"cm"),
+                           type = "closed"),
+             color = "gray50") +
+  annotate("text", x = 29, y = 23,
+           label = "Season 38 is an outlier",
+           hjust = 0,
+           size = 3,
+           family = "barlow") +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        legend.position = "bottom",
+        plot.title = element_text(family = "rs"),
+        plot.subtitle = element_text(family = "barlow"),
+        legend.text = element_text(family = "barlow"),
+        legend.title = element_text(family = "barlow"),
+        axis.title = element_text(family = "barlow"),
+        axis.text = element_text(family = "barlow")) +
+  scale_color_brewer(palette = "Reds") +
+  labs(title = "Jeopardy! win streak lengths over time",
+       subtitle = "Distribution of streak lengths by season",
+       x = "Season",
+       y = NULL,
+       color = "Proportion of streaks this length or less",
+       caption = "Data: J! Archive")
+
+```
+
+This plot can be a little confusing at first. Each bar includes most of the win streaks for a season. The darkest shade includes 50% of the win streaks, the medium shade includes 80% of the win streaks, and the lightest shade includes 95% of the win streaks.
+
+This plot clearly shows that the most recent season is an extreme outlier. Excluding Season 38, it's hard to see a clear increasing trend in average streak length, aside from the fact that win streaks got a little longer after the win limit was eliminated.
+
+James Holzhauer, one of the show's record-holders, [doesn't think](https://www.nytimes.com/2022/01/09/arts/television/jeopardy-streaks-amy-schneider.html?referringSource=articleShare) the recent run of streaks is meaningful: "People always assume everything is a paradigm shift ... when it's actually fairly normal for results to occasionally cluster." I think the data support his interpretation.
+
+## The data {#data}
+
+J! Archive is an amazing resource, but it's really designed for human readers to review individual games, not for computers to download massive amounts of data. I ran into a few difficulties with the way the data was formatted in J! Archive. I'll share a couple of them partly for interest and partly so that if anyone decides to use my data, they will understand it may contain some errors.
+
+### Contestant names
+
+Each game page includes full contestant names at the top of the page and "nicknames" (usually first names -- the names that show up on people's screens on *Jeopardy*) at the bottom of the page with the final scores.
+
+This created a challenge because while there is almost certainly only one "James Holzhauer" to compete on *Jeopardy*, there's definitely *not* one "James" to ever compete on *Jeopardy*.
+
+To figure out streaks, it was helpful to first assign a unique identifier to each contestant, like their full name. Then I could figure out *which* James won or lost each game.
+
+In most cases, I could just compare the "nicknames" to the full names and look for a match. But some people named James go by Jim, for example, and in those cases, a direct match won't work. So I had to manually add a bunch of special cases shown below.
+
+```{r find-contestant-name-function, include=TRUE, eval=FALSE}
+find_full_contestant_name <- function(contestant_list, nickname) {
+  # Remove all non-alpha characters 
+  #(except for hyphen, period, apostrophe, and internal spaces)
+  n <- str_remove_all(nickname, "[^a-zA-Z\\-.' ]")
+  n <- str_trim(n)
+  
+  # I've hard-coded some nicknames here to take care of hard cases in the data
+  if (n == "Mike") {
+    n <- "(Mike|Michael)"
+  }
+  else if (n == "Dave") {
+    n <- "(Dave|David)"
+  }
+  else if (n == "Tom") {
+    n <- "(Tom|Thomas)"
+  }
+  else if (n == "Dottie") {
+    n <- "(Dottie|Dorothy)"
+  }
+  else if (n == "Ernie") {
+    n <- "(Ernie|Ernest)"
+  }
+  else if (n == "Charlie") {
+    n <- "(Charlie|Charles)"
+  }
+  else if (n == "Ray") {
+    n <- "(Ray|Arthur)"
+  }
+  else if (n == "Sandy") {
+    n <- "(Sandy|Sandra)"
+  }
+  else if (n == "SSGT Paul") {
+    n <- "Paul Croshier"
+  }
+  else if (n == "DJ") {
+    n <- "(DJ|David)"
+  }
+  else if (n == "Sparky") {
+    n <- "(Sparky|John)"
+  }
+  else if (n == "Air Rob") {
+    n <- "(Air Rob|Rob)"
+  }
+  else if (n == "BobCat") {
+    n <- "(BobCat|Bob)"
+  }
+  else if (n == "MaryBeth") {
+    n <- "(MaryBeth|Mary Beth)"
+  }
+  else if (n == "zgn") {
+    n <- "Ozgun"
+  }
+  else if (n == "Julin") {
+    n <- "Julián"
+  }
+  else if (n == "Franois") {
+    n <- "Francois"
+  }
+  else if (n == "Rene" || n == "Renée") {
+    n <- "(Rene|Renée)"
+  }
+  else if (n == "Rb") {
+    n <- "Røb"
+  }
+  else if (n == "Dr. Oz") {
+    n <- "Dr. Mehmet Oz"
+  }
+  else if (n == "Desire") {
+    n <- "(Desirée|Desire)"
+  }
+  else if (n == "Frdrique") {
+    n <- "Frédérique"
+  }
+  else if (n == "Genevive") {
+    n <- "Geneviève"
+  }
+  else if (n == "Nio") {
+    n <- "Niño"
+  }
+  else if (n == "Steve-O") {
+    n <- "Steven"
+  }
+  else if (n == "Csar") {
+    n <- "César"
+  }
+  else if (n == "Sebastin") {
+    n <- "Sebastián"
+  }
+  else if (n == "Nadge") {
+    n <- "Nadège"
+  }
+  else if (n == "Andrs") {
+    n <- "Andrés"
+  }
+  else if (n == "Ramn") {
+    n <- "Ramón"
+  }
+  else if (n == "Anglica") {
+    n <- "Angélica"
+  }
+
+  
+  # Cycle through all names in contestant list and look for a match
+  for (c in contestant_list) {
+    if (!is.na(str_match(str_to_lower(c), str_to_lower(n))[1])) {
+      return(c)
+    }
+  }
+  
+  # No matches found
+  print(paste(contestant_list[1],
+              contestant_list[2],
+              contestant_list[3], n,sep = ","))
+  stop("Error: find_full_contestant_name found no name matches.")
+}
+```
+
+A number of the special cases were to match names that contained characters that I had stripped away at the beginning (which I did because I found a contestant whose nickname was in the archive as "[Jen :)](https://www.j-archive.com/showgame.php?game_id=1441)")
+
+### Interrupted streaks
+
+Jeopardy occasionally runs special events like tournaments or college championships that are scheduled in advance and interrupt regular play. When identifying streaks, I had to skip past these events somehow.
+
+Luckily, J! Archive includes a "comments" field at the top of every page with notes about each episode like whether it was a tournament. So again, I used a brute-force approach, matching the contents of the comments field to a list in order to filter out all these special events.
+
+The difficulty, yet again, was figuring out how many different special events there were (I'm still not sure I caught them all). Here's the snippet of code where I tried to exclude tournaments, championships, kids weeks, celebrity *Jeopardy*, and more.
+
+```{r include=TRUE, eval=FALSE}
+streaks_by_season <- j_data |> 
+  filter(is.na(str_match(str_to_lower(comments), "tournament"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "championship"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "battle"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "all-star"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "celebrity"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "kids"))) |>
+  filter(is.na(str_match(str_to_lower(comments), "week"))) |>
+```
+
+## Code
+
+The full analysis code I used to generate these plots is available [here](https://github.com/alanjern/jeopardy-streaks).

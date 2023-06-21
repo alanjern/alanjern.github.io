@@ -1,0 +1,31 @@
+---
+title: "Teaching"
+---
+
+## 2023-2024 courses
+
+### Fall
+
+On leave
+
+### Winter
+
+Introduction to Psychology ([previous syllabus](./syllabi/intro_fall22.pdf))
+
+Cognitive Psychology ([previous syllabus](./syllabi/cogpsych_fall22.pdf))
+
+### Spring
+
+Applied Psychology ([previous syllabus](./syllabi/appliedpsych_winter21.pdf))
+
+Computational Psychology ([previous syllabus](./syllabi/comppsych_spring22.pdf))
+
+## Other courses
+
+Social Psychology ([previous syllabus](./syllabi/social_winter22.pdf))
+
+Moral Psychology ([previous syllabus](./syllabi/moralpsych_spring23.pdf))
+
+## Textbooks
+
+[Introduction to Computational Psychology](https://alanjern.github.io/computational-psych-book/). Online textbook used in my Computational Psychology course.

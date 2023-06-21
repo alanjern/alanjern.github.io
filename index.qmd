@@ -1,0 +1,33 @@
+---
+title: "Alan Jern"
+image: me.jpeg
+about: 
+  template: solana
+  links:
+    - icon: envelope
+      text: email
+      href: mailto:jern@rose-hulman.edu
+    - icon: google
+      text: google scholar
+      href: https://scholar.google.com/citations?user=t453qlUAAAAJ&hl=en
+    - icon: github
+      text: github
+      href: https://github.com/alanjern
+page-layout: full
+---
+
+I'm an Associate Professor of Psychology and cognitive scientist at Rose-Hulman Institute of Psychology.
+
+I use computational models and behavioral experiments to study how people think and reason. I'm primarily interested in social cognition: how people think about other people. I have also studied how people learn and use concepts, and how people revise their beliefs after seeing new evidence.
+
+I write about TV and psychology at [Overthinking TV](https://www.psychologytoday.com/us/blog/overthinking-tv).
+
+### Education
+
+**Ph.D., Psychology, 2013**\
+Carnegie Mellon University
+
+**B.S., Computer Science, 2007**\
+UCLA
+
+[{{< fa brands jedi-order >}}](starwars/starwars.qmd)
