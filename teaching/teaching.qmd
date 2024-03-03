@@ -20,11 +20,24 @@ Applied Psychology ([previous syllabus](./syllabi/appliedpsych_winter21.pdf))
 
 Computational Psychology ([previous syllabus](./syllabi/comppsych_spring22.pdf))
 
-## Other courses
+## Tentative 2024-2025 courses
+
+### Fall
+
+Introduction to Psychology
+
+Cognitive Psychology
+
+### Winter
+
+TBD (new course)
+
+### Spring
 
 Social Psychology ([previous syllabus](./syllabi/social_winter22.pdf))
 
 Moral Psychology ([previous syllabus](./syllabi/moralpsych_spring23.pdf))
+
 
 ## Textbooks
 
