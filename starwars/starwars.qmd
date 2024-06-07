@@ -70,4 +70,6 @@ title: "Star Wars around the world"
 [![Pittsburgh, May 2021](./photos/33-pittsburgh21.jpg)](./photos/33-pittsburgh21.jpg)
 
 [![Disneyland, August 2022](./photos/34-disneyland22.jpeg)](./photos/34-disneyland22.jpeg)
+
+[![Portland, May 2024](./photos/35-portland.jpeg)](./photos/35-portland.jpeg)
 :::
