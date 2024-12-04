@@ -7,13 +7,13 @@ title: "Teaching"
 
 ### Fall
 
-Introduction to Psychology ([previous syllabus](./syllabi/intro_fall22.pdf))
+Introduction to Psychology ([previous syllabus](./syllabi/intro_fall24.pdf))
 
-Cognitive Psychology ([previous syllabus](./syllabi/cogpsych_fall22.pdf))
+Cognitive Psychology ([previous syllabus](./syllabi/cogpsych_fall24.pdf))
 
 ### Winter
 
-TBD (new course)
+Psychology for a Better World ([previous syllabus](./syllabi/psychforabetterworld_winter24.pdf))
 
 ### Spring
 
