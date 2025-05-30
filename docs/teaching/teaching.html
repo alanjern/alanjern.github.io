@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -36,10 +36,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0ed67a3555b0ed3c087507b6c4a0f2c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -155,33 +155,45 @@ gtag('config', 'G-71M9JBSY79', { 'anonymize_ip': true});
 </header>
 
 
-<section id="courses" class="level2">
-<h2 class="anchored" data-anchor-id="courses">2024-2025 courses</h2>
-<section id="fall" class="level3">
-<h3 class="anchored" data-anchor-id="fall">Fall</h3>
+<section id="courses" class="level1">
+<h1>2025-2026 courses</h1>
+<section id="fall" class="level2">
+<h2 class="anchored" data-anchor-id="fall">Fall</h2>
 <p>Introduction to Psychology (<a href="./syllabi/intro_fall24.pdf">previous syllabus</a>)</p>
 <p>Cognitive Psychology (<a href="./syllabi/cogpsych_fall24.pdf">previous syllabus</a>)</p>
 </section>
-<section id="winter" class="level3">
-<h3 class="anchored" data-anchor-id="winter">Winter</h3>
-<p>Psychology for a Better World (<a href="./syllabi/psychforabetterworld_winter24.pdf">previous syllabus</a>)</p>
-</section>
-<section id="spring" class="level3">
-<h3 class="anchored" data-anchor-id="spring">Spring</h3>
-<p>Social Psychology (<a href="./syllabi/social_winter22.pdf">previous syllabus</a>)</p>
-<p>Moral Psychology (<a href="./syllabi/moralpsych_spring23.pdf">previous syllabus</a>)</p>
-</section>
-</section>
-<section id="other-courses" class="level2">
-<h2 class="anchored" data-anchor-id="other-courses">Other courses</h2>
+<section id="winter" class="level2">
+<h2 class="anchored" data-anchor-id="winter">Winter</h2>
 <p>Applied Psychology (<a href="./syllabi/appliedpsych_spring24.pdf">previous syllabus</a>)</p>
+</section>
+<section id="spring" class="level2">
+<h2 class="anchored" data-anchor-id="spring">Spring</h2>
+<p>Moral Psychology (<a href="./syllabi/moralpsych_spring25.pdf">previous syllabus</a>)</p>
 <p>Computational Psychology (<a href="./syllabi/comppsych_spring24.pdf">previous syllabus</a>)</p>
 </section>
+<section id="tentative-2026-2027-courses" class="level2">
+<h2 class="anchored" data-anchor-id="tentative-2026-2027-courses">Tentative 2026-2027 courses</h2>
+</section>
+<section id="fall-1" class="level2">
+<h2 class="anchored" data-anchor-id="fall-1">Fall</h2>
+<p>Introduction to Psychology</p>
+<p>Cognitive Psychology</p>
+</section>
+<section id="winter-1" class="level2">
+<h2 class="anchored" data-anchor-id="winter-1">Winter</h2>
+<p>Psychology for a Better World (<a href="./syllabi/psychforabetterworld_winter24.pdf">previous syllabus</a>)</p>
+</section>
+</section>
+<section id="spring-1" class="level1">
+<h1>Spring</h1>
+<p>Introduction to Psychology</p>
+<p>Social Psychology (<a href="./syllabi/social_spring25.pdf">previous syllabus</a>)</p>
 <section id="textbooks" class="level2">
 <h2 class="anchored" data-anchor-id="textbooks">Textbooks</h2>
 <p><a href="https://alanjern.github.io/computational-psych-book/">Introduction to Computational Psychology</a>. Online textbook used in my Computational Psychology course.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -267,8 +279,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -379,7 +389,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
