@@ -20,8 +20,7 @@ Moral Psychology ([previous syllabus](./syllabi/moralpsych_spring25.pdf))
 
 Computational Psychology ([previous syllabus](./syllabi/comppsych_spring24.pdf))
 
-
-## Tentative 2026-2027 courses
+# Tentative 2026-2027 courses
 
 ## Fall
 
@@ -33,13 +32,12 @@ Cognitive Psychology
 
 Psychology for a Better World ([previous syllabus](./syllabi/psychforabetterworld_winter24.pdf))
 
-# Spring
+## Spring
 
 Introduction to Psychology
 
 Social Psychology ([previous syllabus](./syllabi/social_spring25.pdf))
 
-
-## Textbooks
+# Textbooks
 
 [Introduction to Computational Psychology](https://alanjern.github.io/computational-psych-book/). Online textbook used in my Computational Psychology course.

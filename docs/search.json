@@ -263,7 +263,7 @@
     "href": "teaching/teaching.html",
     "title": "Teaching",
     "section": "",
-    "text": "Introduction to Psychology (previous syllabus)\nCognitive Psychology (previous syllabus)\n\n\n\nApplied Psychology (previous syllabus)\n\n\n\nMoral Psychology (previous syllabus)\nComputational Psychology (previous syllabus)\n\n\n\n\n\n\nIntroduction to Psychology\nCognitive Psychology\n\n\n\nPsychology for a Better World (previous syllabus)"
+    "text": "Introduction to Psychology (previous syllabus)\nCognitive Psychology (previous syllabus)\n\n\n\nApplied Psychology (previous syllabus)\n\n\n\nMoral Psychology (previous syllabus)\nComputational Psychology (previous syllabus)"
   },
   {
     "objectID": "teaching/teaching.html#courses",
@@ -360,14 +360,21 @@
     "objectID": "teaching/teaching.html#fall-1",
     "href": "teaching/teaching.html#fall-1",
     "title": "Teaching",
-    "section": "",
-    "text": "Introduction to Psychology\nCognitive Psychology"
+    "section": "Fall",
+    "text": "Fall\nIntroduction to Psychology\nCognitive Psychology"
   },
   {
     "objectID": "teaching/teaching.html#winter-1",
     "href": "teaching/teaching.html#winter-1",
     "title": "Teaching",
-    "section": "",
-    "text": "Psychology for a Better World (previous syllabus)"
+    "section": "Winter",
+    "text": "Winter\nPsychology for a Better World (previous syllabus)"
+  },
+  {
+    "objectID": "teaching/teaching.html#spring-1",
+    "href": "teaching/teaching.html#spring-1",
+    "title": "Teaching",
+    "section": "Spring",
+    "text": "Spring\nIntroduction to Psychology\nSocial Psychology (previous syllabus)"
   }
 ]
