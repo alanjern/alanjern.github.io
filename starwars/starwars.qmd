@@ -2,7 +2,7 @@
 title: "Star Wars around the world"
 ---
 
-::: {layout-ncol=2}
+::: {layout-ncol="2"}
 [![Washington, D.C., 1997](./photos/01-smithsonian.jpg)](./photos/01-smithsonian.jpg)
 
 [![San Francisco, 1998](./photos/02-sfmayhew.jpg)](./photos/02-sfmayhew.jpg)
@@ -72,4 +72,6 @@ title: "Star Wars around the world"
 [![Disneyland, August 2022](./photos/34-disneyland22.jpeg)](./photos/34-disneyland22.jpeg)
 
 [![Portland, May 2024](./photos/35-portland.jpeg)](./photos/35-portland.jpeg)
+
+[![Albuquerque, June 2025](./photos/36-abq.jpg)](./photos/36-abq.jpg)
 :::
