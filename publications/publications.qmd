@@ -60,9 +60,7 @@ A. Jern & C. Kemp. (2009). [Category generation](./papers/catgen_cogsci09.pdf). 
 
 [HBO's My Brilliant Friend: A glance into the reality of child prodigies](https://culturico.com/2020/04/30/hbos-my-brilliant-friend-a-glance-into-the-reality-of-child-prodigies/). Culturico. April 30, 2020.
 
-[Could stabbing yourself help you remember? The cognitive psychology behind a scene from Netflix's Altered Carbon](https://cogbites.org/2020/03/16/state-dependent-memory/). March 16, 2020.
-
-[There are no "good" or "bad" people](https://areomagazine.com/2020/03/06/there-are-no-good-or-bad-people/). Areo. March 6, 2020.
+[Could stabbing yourself help you remember? The cognitive psychology behind a scene from Netflix's Altered Carbon](https://cogbites.org/2020/03/16/state-dependent-memory/). cogbites. March 16, 2020.
 
 [What HBO's Westworld gets wrong (and right) about human nature](https://theconversation.com/what-hbos-westworld-gets-wrong-and-right-about-human-nature-67286). The Conversation. November 3, 2016.
 
