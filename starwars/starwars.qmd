@@ -74,4 +74,6 @@ title: "Star Wars around the world"
 [![Portland, May 2024](./photos/35-portland.jpeg)](./photos/35-portland.jpeg)
 
 [![Albuquerque, June 2025](./photos/36-abq.jpg)](./photos/36-abq.jpg)
+
+[![Durham, North Carolina, August 2025](./photos/37-durham.jpg)](./photos/37-durham.jpg)
 :::
