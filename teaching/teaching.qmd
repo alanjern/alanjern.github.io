@@ -6,13 +6,13 @@ title: "Teaching"
 
 ## Fall
 
-Introduction to Psychology ([previous syllabus](./syllabi/intro_fall24.pdf))
+Introduction to Psychology ([previous syllabus](./syllabi/intro_fall25.pdf))
 
-Cognitive Psychology ([previous syllabus](./syllabi/cogpsych_fall24.pdf))
+Cognitive Psychology ([previous syllabus](./syllabi/cogpsych_fall25.pdf))
 
 ## Winter
 
-Applied Psychology ([previous syllabus](./syllabi/appliedpsych_spring24.pdf))
+Applied Psychology ([previous syllabus](./syllabi/appliedpsych_winter25.pdf))
 
 ## Spring
 
