@@ -2,31 +2,13 @@
 title: "Teaching"
 ---
 
-# 2025-2026 courses
+# 2026-2027 courses
 
 ## Fall
 
-Introduction to Psychology ([previous syllabus](./syllabi/intro_fall25.pdf))
+Introduction to Psychology ([syllabus](./syllabi/intro_fall26.pdf))
 
-Cognitive Psychology ([previous syllabus](./syllabi/cogpsych_fall25.pdf))
-
-## Winter
-
-Applied Psychology ([previous syllabus](./syllabi/appliedpsych_winter25.pdf))
-
-## Spring
-
-Moral Psychology ([previous syllabus](./syllabi/moralpsych_spring25.pdf))
-
-Computational Psychology ([previous syllabus](./syllabi/comppsych_spring24.pdf))
-
-# Tentative 2026-2027 courses
-
-## Fall
-
-Introduction to Psychology
-
-Cognitive Psychology
+Cognitive Psychology ([syllabus](./syllabi/cogpsych_fall26.pdf))
 
 ## Winter
 
@@ -37,6 +19,24 @@ Psychology for a Better World ([previous syllabus](./syllabi/psychforabetterworl
 Introduction to Psychology
 
 Social Psychology ([previous syllabus](./syllabi/social_spring25.pdf))
+
+# Tentative 2027-2028 courses
+
+## Fall
+
+Introduction to Psychology
+
+Cognitive Psychology
+
+## Winter
+
+Applied Psychology ([previous syllabus](./syllabi/appliedpsych_winter25.pdf))
+
+## Spring
+
+Moral Psychology ([previous syllabus](./syllabi/moralpsych_spring25.pdf))
+
+Computational Psychology ([previous syllabus](./syllabi/comppsych_spring26.pdf))
 
 # Textbooks
 
